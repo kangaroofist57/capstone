@@ -50,7 +50,7 @@ export default class Login extends Component {
     });
 
     if(this.state.newPassword !== this.state.confirmPassword) return this.setState({
-      problems: 'Passowords do not match'
+      problems: 'Passwords do not match'
     });
 
     axios.post('/api/newUser', { username: this.state.newUsername, password: this.state.newPassword }).then(data => {
@@ -120,7 +120,7 @@ export default class Login extends Component {
 
             <label>confirm password: </label>
             <input
-              name="confrimPassword"
+              name="confirmPassword"
               placeholder="Confirm Password"
               type="password"
               onChange={this.changeHandler}
