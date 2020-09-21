@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink
+} from 'react-router-dom';
 import axios from 'axios';
+
+import './styles/main.scss';
+
+import Home from './components/pages/home';
+import Login from './components/pages/login';
+import NoMatch from './components/pages/noMatch';
 
 export default class APP extends Component {
 
@@ -11,129 +23,34 @@ export default class APP extends Component {
     }
   }
 
-  // componentDidMount = () => {
-  //   axios.get('/api/creds').then(data => {
-  //     this.setState({
-  //       data: data.data
-  //     });
-  //     console.log(data);
-  //   }).catch(err => {
-  //     console.log('axios Error', err);
-  //   });
-  // }
-
-  handleClick = async() => {
-    await axios.get('/api/creds').then(response => {
-      if(localStorage.getItem('loggedInStatus') === 'true') localStorage.clear();
-      response.data.forEach(obj => {
-        if(obj.username === this.state.username) {
-          if(obj.password === this.state.password) {
-            localStorage.setItem('loggedInStatus', true);
-            localStorage.setItem('id', obj._id);
-            localStorage.setItem('userInfo', JSON.stringify(obj));
-            this.setState({
-              userInfo: obj
-            });
-          }
-        }
-      });
-      // this.setState({
-      //   username: response.data,
-      //   password: response.password
-      // });
-      console.log(response);
-    }).catch(err => {
-      console.log('axios Error', err);
-    });
-    window.location.reload({ forcedReload: false });
-  }
-
-  changeHandler = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-    this.setState({ [name]: value });
-  }
-
-  createAccount = () => {
-    axios.post('/api/newUser', { username: this.state.newUsername, password: this.state.newPassword }).then(data => {
-      console.log(data);
-    });
-    localStorage.setItem('loggedInStatus', true);
-  }
-
-  // componentDidMount = () => {
-  //   axios.get('/api/creds').then(response => {
-  //     let fetchUser = response.data.filter(data => data._id === localStorage.getItem('id'));
-  //     console.log(fetchUser);
-
-  //     this.setState({
-  //       userInfo: fetchUser[0]
-  //     })
-  //   });
-  // }
-
   render() {
-    return (
-      <div className="App">
+    return(
+      <div className="container">
+        <Router>
 
-        <div>{localStorage.getItem('loggedInStatus') === 'true' ? `Logged In As ${JSON.parse(localStorage.getItem('userInfo')).username}` : null}</div>
+          <div>
 
-        <form>
+            <div className="nav-bar">
+              <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
+              <NavLink to="/auth" activeClassName="active-link">{localStorage.getItem('loggedInStatus') === 'true'
+              ?
+              'Log out'
+              :
+              'Log in'}
+              </NavLink>
+            </div>
 
-          <label>username: </label>
-          <input
-            name="username"
-            placeholder="Username"
-            type="username"
-            onChange={this.changeHandler}
-          />
+            <Switch>
+              <Route exact component={Home} path="/" />
+              <Route exact component={Login} path="/auth" />
+              <Route component={NoMatch} />
+            </Switch>
 
-          <label>password: </label>
-          <input
-            name="password"
-            placeholder="Password"
-            type="password"
-            onChange={this.changeHandler}
-          />
+          </div>
 
-
-        </form>
-
-        <button onClick={this.handleClick}>{localStorage.getItem('loggedInStatus') === 'true' ? "Log Out" : "Log In"}</button>
-        
-        <form>
-
-          <label>username: </label>
-          <input
-            name="newUsername"
-            placeholder="Username"
-            type="username"
-            onChange={this.changeHandler}
-          />
-
-          <label>password: </label>
-          <input
-            name="newPassword"
-            placeholder="Password"
-            type="password"
-            onChange={this.changeHandler}
-          />
-
-          <label>confirm password: </label>
-          <input
-            name="confrimPassword"
-            placeholder="Password"
-            type="password"
-            onChange={this.changeHandler}
-          />
-
-
-        </form>
-
-        <button onClick={this.createAccount}>Create Account</button>
-
+        </Router>
       </div>
-    );
+    )
   }
 }
 
