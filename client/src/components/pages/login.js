@@ -2,27 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 export default class Login extends Component {
-      // componentDidMount = () => {
-  //   axios.get('/api/creds').then(response => {
-  //     let fetchUser = response.data.filter(data => data._id === localStorage.getItem('id'));
-  //     console.log(fetchUser);
 
-  //     this.setState({
-  //       userInfo: fetchUser[0]
-  //     })
-  //   });
-  // }
+  constructor() {
+    super()
 
-    // componentDidMount = () => {
-  //   axios.get('/api/creds').then(data => {
-  //     this.setState({
-  //       data: data.data
-  //     });
-  //     console.log(data);
-  //   }).catch(err => {
-  //     console.log('axios Error', err);
-  //   });
-  // }
+    this.state = {
+      problems: null
+    }
+  }
 
   handleClick = async() => {
     await axios.get('/api/creds').then(response => {
@@ -39,10 +26,6 @@ export default class Login extends Component {
           }
         }
       });
-      // this.setState({
-      //   username: response.data,
-      //   password: response.password
-      // });
       console.log(response);
     }).catch(err => {
       console.log('axios Error', err);
@@ -57,71 +40,100 @@ export default class Login extends Component {
   }
 
   createAccount = () => {
+
+    if(!this.state.newUsername) return this.setState({
+      problems: 'Please fill in username'
+    });
+
+    if(!this.state.newPassword) return this.setState({
+      problems: 'Please fill in passwords'
+    });
+
+    if(this.state.newPassword !== this.state.confirmPassword) return this.setState({
+      problems: 'Passowords do not match'
+    });
+
     axios.post('/api/newUser', { username: this.state.newUsername, password: this.state.newPassword }).then(data => {
       console.log(data);
     });
-    // localStorage.setItem('loggedInStatus', true);
   }
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
 
-        <div>{localStorage.getItem('loggedInStatus') === 'true' ? `Logged In As ${JSON.parse(localStorage.getItem('userInfo')).username}` : null}</div>
+        <div className="user-name">{localStorage.getItem('loggedInStatus') === 'true'
+        ?
+        (<div>
+          <div>Logged In As</div>
+          <h1>{JSON.parse(localStorage.getItem('userInfo')).username}</h1>
+        </div>)
+        :
+        null}</div>
 
-        <form>
+        <div className="log-in-form">
 
-          <label>username: </label>
-          <input
-            name="username"
-            placeholder="Username"
-            type="username"
-            onChange={this.changeHandler}
-          />
+          <form>
 
-          <label>password: </label>
-          <input
-            name="password"
-            placeholder="Password"
-            type="password"
-            onChange={this.changeHandler}
-          />
+            <label>username: </label>
+            <input
+              name="username"
+              placeholder="Username"
+              type="username"
+              onChange={this.changeHandler}
+            />
+
+            <label>password: </label>
+            <input
+              name="password"
+              placeholder="Password"
+              type="password"
+              onChange={this.changeHandler}
+            />
 
 
-        </form>
+          </form>
 
-        <button onClick={this.handleClick}>{localStorage.getItem('loggedInStatus') === 'true' ? "Log Out" : "Log In"}</button>
+          <button onClick={this.handleClick}>{localStorage.getItem('loggedInStatus') === 'true' ? "Log Out" : "Log In"}</button>
+
+        </div>
         
-        <form>
+        <div className="create-account-form">
 
-          <label>username: </label>
-          <input
-            name="newUsername"
-            placeholder="Username"
-            type="username"
-            onChange={this.changeHandler}
-          />
+          <form>
 
-          <label>password: </label>
-          <input
-            name="newPassword"
-            placeholder="Password"
-            type="password"
-            onChange={this.changeHandler}
-          />
+            <label>username: </label>
+            <input
+              name="newUsername"
+              placeholder="Username"
+              type="username"
+              onChange={this.changeHandler}
+            />
 
-          <label>confirm password: </label>
-          <input
-            name="confrimPassword"
-            placeholder="Password"
-            type="password"
-            onChange={this.changeHandler}
-          />
+            <label>password: </label>
+            <input
+              name="newPassword"
+              placeholder="Password"
+              type="password"
+              onChange={this.changeHandler}
+            />
+
+            <label>confirm password: </label>
+            <input
+              name="confrimPassword"
+              placeholder="Confirm Password"
+              type="password"
+              onChange={this.changeHandler}
+            />
 
 
-        </form>
+          </form>
 
-        <button onClick={this.createAccount}>Create Account</button>
+          <button onClick={this.createAccount}>Create Account</button>
+
+          <div className="problems">{this.state.problems ? this.state.problems : null}</div>
+
+        </div>
 
       </div>
     );

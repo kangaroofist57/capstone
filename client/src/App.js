@@ -5,7 +5,6 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
-import axios from 'axios';
 
 import './styles/main.scss';
 
@@ -29,15 +28,20 @@ export default class APP extends Component {
         <Router>
 
           <div>
+            <div className="nav-heading">
+              <div className="heading">
+                Teacher Tools
+              </div>
 
-            <div className="nav-bar">
-              <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
-              <NavLink to="/auth" activeClassName="active-link">{localStorage.getItem('loggedInStatus') === 'true'
-              ?
-              'Log out'
-              :
-              'Log in'}
-              </NavLink>
+              <div className="nav-bar">
+                <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
+                <NavLink to="/auth" activeClassName="active-link">{localStorage.getItem('loggedInStatus') === 'true'
+                ?
+                JSON.parse(localStorage.getItem('userInfo')).username
+                :
+                'Log in'}
+                </NavLink>
+              </div>
             </div>
 
             <Switch>

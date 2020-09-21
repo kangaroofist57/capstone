@@ -1,0 +1,31 @@
+.app {
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 75%;
+    
+    .user-name {
+        text-align: center;
+    }
+
+    .log-in-form {
+        display: grid;
+        grid-gap: 10px;
+        justify-content: center;
+    }
+
+    .create-account-form {
+        display: grid;
+        grid-gap: 10px;
+        justify-content: center;
+
+        .problems {
+            color: #FF0000;
+        }
+    }
+
+    form {
+        display: grid;
+        grid-gap: 10px;
+    }
+}
