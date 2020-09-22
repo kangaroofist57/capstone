@@ -13,6 +13,7 @@ import Home from './components/pages/home';
 import Login from './components/pages/login';
 import NoMatch from './components/pages/noMatch';
 import UserData from './components/users/userData';
+import Todos from './components/users/todos';
 
 export default class APP extends Component {
 
@@ -45,6 +46,12 @@ export default class APP extends Component {
 
   loggedInPages = () => [
     <Route key="1" exact component={UserData} path="/data" />,
+    <Route key="2" exact component={Todos} path="/todos" />
+  ]
+
+  loggedInButtons = () => [
+    <NavLink key="1" to="/data" activeClassName="active-link">Data</NavLink>,
+    <NavLink key="2" to="/todos" activeClassName="active-link">Todos</NavLink>
   ]
 
   render() {
@@ -60,11 +67,7 @@ export default class APP extends Component {
 
               <div className="nav-bar">
                 <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
-                {this.state.loggedInStatus === true
-                ?
-                <NavLink to="/data" activeClassName="active-link">Data</NavLink>
-                :
-                null}
+                {this.state.loggedInStatus === true ? this.loggedInButtons() : null}
                 <NavLink to="/auth" activeClassName="active-link">{localStorage.getItem('loggedInStatus') === 'true'
                 ?
                 JSON.parse(localStorage.getItem('userInfo')).username
