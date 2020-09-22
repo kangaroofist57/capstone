@@ -1,0 +1,15 @@
+.data-body {
+    align-self: center;
+}
+.student-table {
+    // border: 2px solid white;
+    padding: 10px;
+    // align-self: center;
+
+    table, tr, th {
+        margin: auto;
+        border: 2px solid white;
+        // border-collapse: collapse;
+        padding: 10px;
+    }
+}

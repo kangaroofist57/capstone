@@ -44,7 +44,7 @@ export default class APP extends Component {
   }
 
   loggedInPages = () => [
-    <Route exact component={UserData} path="/data" />,
+    <Route key="1" exact component={UserData} path="/data" />,
   ]
 
   render() {

@@ -34,7 +34,7 @@ app.post('/api/newUser', function(req, res) {
         password: req.body.password,
     })
     newUser.save();
-})
+});
 
 app.listen(port);
 
