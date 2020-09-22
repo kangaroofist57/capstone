@@ -5,12 +5,14 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
+import axios from 'axios';
 
 import './styles/main.scss';
 
 import Home from './components/pages/home';
 import Login from './components/pages/login';
 import NoMatch from './components/pages/noMatch';
+import UserData from './components/users/userData';
 
 export default class APP extends Component {
 
@@ -21,6 +23,29 @@ export default class APP extends Component {
       password: null,
     }
   }
+
+  componentDidMount = () => {
+
+    // let status = false;
+
+    axios.get('/api/creds').then(async response => {
+      await response.data.forEach(data => {
+        if(localStorage.getItem('userInfo')) {
+          let id = JSON.parse(localStorage.getItem('userInfo'))._id;
+          if(data._id === id) return this.setState({
+            loggedInStatus: true
+          });
+        }
+      });
+    });
+
+    // return status;
+
+  }
+
+  loggedInPages = () => [
+    <Route exact component={UserData} path="/data" />,
+  ]
 
   render() {
     return(
@@ -35,6 +60,11 @@ export default class APP extends Component {
 
               <div className="nav-bar">
                 <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
+                {this.state.loggedInStatus === true
+                ?
+                <NavLink to="/data" activeClassName="active-link">Data</NavLink>
+                :
+                null}
                 <NavLink to="/auth" activeClassName="active-link">{localStorage.getItem('loggedInStatus') === 'true'
                 ?
                 JSON.parse(localStorage.getItem('userInfo')).username
@@ -47,6 +77,8 @@ export default class APP extends Component {
             <Switch>
               <Route exact component={Home} path="/" />
               <Route exact component={Login} path="/auth" />
+              {this.state.loggedInStatus === true ? this.loggedInPages() : null}
+              {/* <Route exact component={UserData} path="/data" /> */}
               <Route component={NoMatch} />
             </Switch>
 

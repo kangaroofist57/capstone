@@ -11,9 +11,20 @@ export default class Login extends Component {
     }
   }
 
+  homeReload = () => {
+    this.props.history.push('/');
+    window.location.reload({ forcedReload: false });
+  }
+
   handleClick = async() => {
+    setTimeout(() => {
+      this.setState({ problems: null })
+    }, 4000);
     await axios.get('/api/creds').then(response => {
-      if(localStorage.getItem('loggedInStatus') === 'true') localStorage.clear();
+      if(localStorage.getItem('loggedInStatus') === 'true') {
+        localStorage.clear();
+        this.homeReload();
+      }
       response.data.forEach(obj => {
         if(obj.username === this.state.username) {
           if(obj.password === this.state.password) {
@@ -23,14 +34,20 @@ export default class Login extends Component {
             this.setState({
               userInfo: obj
             });
-          }
-        }
+            this.homeReload();
+          } else this.setState({
+            problems: 'Incorrect password'
+          });
+        } else this.setState({
+          problems: 'Incorrect username'
+        });
       });
       console.log(response);
     }).catch(err => {
       console.log('axios Error', err);
     });
-    window.location.reload({ forcedReload: false });
+    // this.props.history.push('/');
+    // window.location.reload({ forcedReload: false });
   }
 
   changeHandler = (event) => {
@@ -40,6 +57,12 @@ export default class Login extends Component {
   }
 
   createAccount = () => {
+
+    setTimeout(() => {
+      this.setState({
+        problems: null
+      });
+    }, 4000);
 
     if(!this.state.newUsername) return this.setState({
       problems: 'Please fill in username'
@@ -131,8 +154,10 @@ export default class Login extends Component {
 
           <button onClick={this.createAccount}>Create Account</button>
 
-          <div className="problems">{this.state.problems ? this.state.problems : null}</div>
-
+        </div>
+        <div className="problems">
+          <div>problems:</div>
+          <div className="problem">{this.state.problems ? this.state.problems : null}</div>
         </div>
 
       </div>
