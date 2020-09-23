@@ -32,7 +32,7 @@ export default class StudentFormModal extends Component {
     addStudent = () => {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
         axios.patch('/api/addStudent', {
-            userInfo: userInfo,
+            userInfo,
             students: this.state.students,
             info: {
                 first: this.state.firstName,

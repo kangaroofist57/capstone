@@ -3,8 +3,8 @@ import axios from 'axios';
 import StudentFormModal from '../modals/add-student-form';
 
 export default class UserData extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         
         this.state = {
             students: [],
@@ -22,6 +22,7 @@ export default class UserData extends Component {
     componentDidMount = () => {
         axios.get('/api/creds').then(response => {
             let userInfo = response.data.find(element => element._id === JSON.parse(localStorage.getItem('userInfo'))._id);
+            // console.log(userInfo)
             this.setState({
                 // students: userInfo.students
                 students: userInfo.students.length > 0 ? userInfo.students : [{ first: 'No', middle: 'Students', last: 'Availabe' }]
@@ -29,9 +30,29 @@ export default class UserData extends Component {
         });
     }
 
+    deleteStudent = (index) => {
+        let newList = this.state.students;
+        newList.splice(index, 1);
+        // return console.log(arr);
+        let userInfo =  JSON.parse(localStorage.getItem('userInfo'));
+        axios.patch('/api/deleteStudent', {
+            userInfo,
+            newList
+        }).then(data => {
+            
+        });
+        window.location.reload({ forcedReload: false });
+    }
+
+    test = () => {
+        console.log('test');
+    }
+
     renderStudents = () => {
+        let counter = 0;
         return this.state.students.map(student => {
             let rng = Math.random() * 10;
+            counter = counter + 1;
             return (
                 <tr key={rng}>
                     <th>{student.first}</th>
@@ -43,10 +64,10 @@ export default class UserData extends Component {
                     <th>{student.notes}</th>
                     <th>
                         <button>Edit</button>
-                        <button>Delete</button>
+                        <button student='test' onClick={() => this.deleteStudent(this.state.students.indexOf(student))}>Delete</button>
                     </th>
                 </tr>
-            )
+            );
         });
     }
 

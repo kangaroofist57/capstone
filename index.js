@@ -49,8 +49,16 @@ app.patch('/api/addStudent', function(req, res) {
     console.log(list);
 });
 
+app.patch('/api/deleteStudent', function(req, res) {
+    let newList = req.body.newList;
+    capstone.findByIdAndUpdate(req.body.userInfo._id, {
+        students: newList
+    }).then(data => {
+        console.log(data);
+    });
+    // console.log('newlist', req.body);
+})
+
 app.listen(port);
 
 console.log(`Listening on port ${port}`);
-
-// {"_id":{"$oid":"5f67f94cdaace374d602d764"},"username":"test","password":"2020","students":[{"first":"Danny","middle":"Ralph","last":"Solami","dob":"09-31-1990","address":"2034 North Conker Ave","contact":"000-000-0000","notes":"Behaves very well"},{"first":"Mob","middle":"Ray","last":"Barley","dob":"07-20-1989","address":"Tennessee","contact":"999-999-9999","notes":"behaves very horribly"}]}
