@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import StudentFormModal from '../modals/add-student-form';
 
 export default class UserData extends Component {
     constructor() {
         super();
         
         this.state = {
-            students: []
+            students: [],
+            showModal: false,
+            first: '',
+            middle: '',
+            last: '',
+            dob: '',
+            address: '',
+            contact: '',
+            notes: '',
         }
     }
 
@@ -41,6 +50,15 @@ export default class UserData extends Component {
         });
     }
 
+    toggleModal = () => {
+        if(this.state.showModal === false) {
+            this.setState({ showModal: true });
+        }
+        if(this.state.showModal === true) {
+            this.setState({ showModal: false });
+        }
+    }
+
     render() {
         return(
             <div className="data-body">
@@ -55,11 +73,12 @@ export default class UserData extends Component {
                             <th>Contact</th>
                             <th>Notes</th>
                             <th>
-                                <button>Add Student</button>
+                                <button onClick={this.toggleModal}>Add Student</button>
                             </th>
                         </tr>
                         {this.renderStudents()}
                     </table>
+                    {this.state.showModal ? <StudentFormModal toggleModal={this.toggleModal} /> : null}
                 </div>
             </div>
         )
