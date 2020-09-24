@@ -39,7 +39,7 @@ app.post('/api/newUser', function(req, res) {
 
 app.patch('/api/addStudent', function(req, res) {
     let list = req.body.students;
-    // return console.log(list);
+    // return console.log(req.body.info);
     list.push(req.body.info);
     capstone.findByIdAndUpdate(req.body.userInfo._id, {
             students: list

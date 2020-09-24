@@ -35,13 +35,13 @@ export default class StudentFormModal extends Component {
             userInfo,
             students: this.state.students,
             info: {
-                first: this.state.firstName,
-                middle: this.state.middleName,
-                last: this.state.lastName,
-                dob: this.state.dob,
-                address: this.state.address,
-                contact: this.state.contact,
-                notes: this.state.notes,
+                first: this.state.firstName || '',
+                middle: this.state.middleName || '',
+                last: this.state.lastName || '',
+                dob: this.state.dob || '',
+                address: this.state.address || '',
+                contact: this.state.contact || '',
+                notes: this.state.notes || '',
             }
         });
     }
@@ -50,15 +50,20 @@ export default class StudentFormModal extends Component {
         return(
             <ReactModal on style={{
                 content: {
-                    backgroundColor: 'black',
+                    backgroundColor: '#063852',
                     top: "25%",
                     left: '25%',
                     bottom: '25%',
-                    right: '25%'
+                    right: '25%',
+                    borderRadius: '5px',
+                    // overflow: 'unset'
+                    // overflow: 'hidden',
+                    // position: 'relative'
                     // width: '800px',
                     // alignSelf: 'center'
                 }
             }} isOpen={true}>
+                <button className="student-form-close" onClick={this.props.toggleModal}>close</button>
                 <form className='student-form'>
 
                     <label>first Name</label>
@@ -110,7 +115,7 @@ export default class StudentFormModal extends Component {
                     />
 
                     <label>Notes</label>
-                    <input
+                    <textarea
                         type='text'
                         name='notes'
                         placeholder='Notes'
@@ -120,7 +125,6 @@ export default class StudentFormModal extends Component {
                     <button onClick={this.addStudent}>Save</button>
 
                 </form>
-                <button onClick={this.props.toggleModal}>close</button>
             </ReactModal>
         )
     }

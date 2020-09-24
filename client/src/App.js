@@ -59,7 +59,7 @@ export default class APP extends Component {
       <div className="container">
         <Router>
 
-          <div>
+          <div className="body-container">
             <div className="nav-heading">
               <div className="heading">
                 Teacher Tools

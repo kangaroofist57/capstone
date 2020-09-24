@@ -2,3 +2,8 @@ body {
     background-color: $background;
     color: white;
 }
+
+.body-container {
+    display: grid;
+    grid-gap: 20px;
+}

@@ -8,3 +8,21 @@
         width: 300px;
     }
 }
+
+.student-form-close {
+    position: absolute;
+    // align-items: center;
+    // right: 27%;
+    right: 10px;
+}
+
+.student-container {
+    display: grid;
+    grid-gap: 10px;
+    font-size: 20px;
+
+    .name-container {
+        display: flex;
+        gap: 5px;
+    }
+}
