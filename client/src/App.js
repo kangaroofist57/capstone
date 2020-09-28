@@ -32,10 +32,16 @@ export default class APP extends Component {
     axios.get('/api/creds').then(async response => {
       await response.data.forEach(data => {
         if(localStorage.getItem('userInfo')) {
+          let userInfo = JSON.parse(localStorage.getItem('userInfo'));
           let id = JSON.parse(localStorage.getItem('userInfo'))._id;
-          if(data._id === id) return this.setState({
-            loggedInStatus: true
-          });
+          if(data._id === id) {
+            this.setState({
+              loggedInStatus: true
+            });
+
+            userInfo.students = data.students;
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+          }
         }
       });
     });

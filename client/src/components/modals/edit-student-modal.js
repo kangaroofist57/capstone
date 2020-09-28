@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
+import axios from 'axios';
 
 ReactModal.setAppElement("#root");
 
@@ -8,15 +9,15 @@ export default class EditStudent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            
         }
     }
 
     componentDidMount = () => {
         this.setState({
-            firstName: this.props.student.first,
-            middleName: this.props.student.middle,
-            lastName: this.props.student.last,
+            first: this.props.student.first,
+            middle: this.props.student.middle,
+            last: this.props.student.last,
             dob: this.props.student.dob,
             address: this.props.student.address,
             contact: this.props.student.contact,
@@ -28,6 +29,20 @@ export default class EditStudent extends Component {
         let name = event.target.name;
         let value = event.target.value;
         this.setState({ [name]: value });
+    }
+
+    editStudent = () => {
+        let index = this.props.index;
+        let oldList = JSON.parse(localStorage.getItem('userInfo')).students;
+        let changedStudent = oldList[index] = this.state
+        // return console.log(oldList);
+        axios.patch('/api/editStudent', {
+            userInfo: JSON.parse(localStorage.getItem('userInfo')),
+            oldList
+        }).catch(err => {
+            console.log('axios err', err);
+        });
+        window.location.reload({ forcedReload: false });
     }
 
     render() {
@@ -50,34 +65,34 @@ export default class EditStudent extends Component {
 
                     <label>first Name</label>
                     <input
-                        value={this.state.firstName}
+                        value={this.state.first || ''}
                         type='text'
-                        name='firstName'
+                        name='first'
                         placeholder='First Name'
                         onChange={this.changeHandler}
                     />
 
                     <label>Middle Name</label>
                     <input
-                        value={this.state.middleName}
+                        value={this.state.middle || ''}
                         type='text'
-                        name='middleName'
+                        name='middle'
                         placeholder='Middle Name'
                         onChange={this.changeHandler}
                     />
 
                     <label>Last Name</label>
                     <input
-                        value={this.state.lastName}
+                        value={this.state.last || ''}
                         type='text'
-                        name='lastName'
+                        name='last'
                         placeholder='Last Name'
                         onChange={this.changeHandler}
                     />
 
                     <label>Date of Birth</label>
                     <input
-                        value={this.state.dob}
+                        value={this.state.dob || ''}
                         type='text'
                         name='dob'
                         placeholder='MM-DD-YYY'
@@ -86,7 +101,7 @@ export default class EditStudent extends Component {
 
                     <label>Address</label>
                     <input
-                        value={this.state.address}
+                        value={this.state.address || ''}
                         type='text'
                         name='address'
                         placeholder='Address'
@@ -95,7 +110,7 @@ export default class EditStudent extends Component {
 
                     <label>Contact</label>
                     <input
-                        value={this.state.contact}
+                        value={this.state.contact || ''}
                         type='text'
                         name='contact'
                         placeholder='Contact'
@@ -104,16 +119,18 @@ export default class EditStudent extends Component {
 
                     <label>Notes</label>
                     <textarea
-                        value={this.state.notes}
+                        value={this.state.notes || ''}
                         type='text'
                         name='notes'
                         placeholder='Notes'
                         onChange={this.changeHandler}
                     />
 
-                    <button onClick={this.addStudent}>Save</button>  {/* stopped here */}
+                    <button onClick={this.editStudent}>Save</button>  {/* stopped here */}
 
                 </form>
+
+
             </ReactModal>
         )
     }

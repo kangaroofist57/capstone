@@ -79,7 +79,7 @@ export default class UserData extends Component {
                     <th>{notes.length > 20 ? `${notes.slice(0, 20)}...` : notes}</th>
                     <th>
                         <button onClick={() => this.toggleModal('showStudentModal', student)}>View</button>
-                        <button onClick={() => this.toggleModal('showEditStudentModal', student)}>Edit</button>
+                        <button onClick={() => this.toggleModal('showEditStudentModal', student, index)}>Edit</button>
                         <button student='test' onClick={() => this.deleteStudent(index)}>Delete</button>
                     </th>
                 </tr>
@@ -87,11 +87,11 @@ export default class UserData extends Component {
         });
     }
 
-    toggleModal = (type, student) => {
+    toggleModal = (type, student, index) => {
         console.log(type)
         if(this.state[type] === false) {
             this.setState({ [type]: true });
-            if(student) this.setState({ student });
+            if(student) this.setState({ student, index });
         }
         if(this.state[type] === true) {
             this.setState({ [type]: false });
@@ -120,7 +120,7 @@ export default class UserData extends Component {
                     </table>
                     {this.state.showModal ? <StudentFormModal toggleModal={() => this.toggleModal('showModal')} /> : null}
                     {this.state.showStudentModal ? <StudentModal student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
-                    {this.state.showEditStudentModal ? <EditStudent student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}
+                    {this.state.showEditStudentModal ? <EditStudent index={this.state.index} student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}
                     {/* <StudentModal /> */}
                 </div>
             </div>
