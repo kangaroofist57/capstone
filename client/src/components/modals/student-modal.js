@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
+import moment from 'moment';
 
 ReactModal.setAppElement("#root");
 
@@ -30,7 +31,7 @@ export default class StudentModal extends Component {
                         <div>{student.middle}</div>
                         <div>{student.last}</div>
                     </div>
-                    <div>{student.dob}</div>
+                    <div>{student.dob}{isNaN(moment().diff(student.dob, 'years')) ? null : ` Age: ${moment().diff(student.dob, 'years')}`}</div>
                     <div>{student.address}</div>
                     <div>{student.contact}</div>
                     <div>{student.notes}</div>
