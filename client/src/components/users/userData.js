@@ -13,6 +13,7 @@ export default class UserData extends Component {
             students: [],
             showModal: false,
             showStudentModal: false,
+            showEditStudentModal: false,
             first: '',
             middle: '',
             last: '',
@@ -65,19 +66,20 @@ export default class UserData extends Component {
     renderStudents = () => {
         return this.state.students.map((student, index) => {
             let rng = Math.random() * 10;
+            let { first, middle, last, dob, address, contact, notes } = student;
             // console.log(student)
             return (
                 <tr key={rng}>
-                    <th>{student.first.length > 20 ? `${student.first.slice(0, 20)}...` : student.first}</th>
-                    <th>{student.middle.length > 20 ? `${student.middle.slice(0, 20)}...` : student.middle}</th>
-                    <th>{student.last.length > 20 ? `${student.last.slice(0, 20)}...` : student.last}</th>
-                    <th>{student.dob.length > 20 ? `${student.dob.slice(0, 20)}...` : student.dob}</th>
-                    <th>{student.address.length > 20 ? `${student.address.slice(0, 20)}...` : student.address}</th>
-                    <th>{student.contact.length > 20 ? `${student.contact.slice(0, 20)}...` : student.contact}</th>
-                    <th>{student.notes.length > 20 ? `${student.notes.slice(0, 20)}...` : student.notes}</th>
+                    <th>{first.length > 20 ? `${first.slice(0, 20)}...` : first}</th>
+                    <th>{middle.length > 20 ? `${middle.slice(0, 20)}...` : middle}</th>
+                    <th>{last.length > 20 ? `${last.slice(0, 20)}...` : last}</th>
+                    <th>{dob.length > 20 ? `${dob.slice(0, 20)}...` : dob}</th>
+                    <th>{address.length > 20 ? `${address.slice(0, 20)}...` : address}</th>
+                    <th>{contact.length > 20 ? `${contact.slice(0, 20)}...` : contact}</th>
+                    <th>{notes.length > 20 ? `${notes.slice(0, 20)}...` : notes}</th>
                     <th>
                         <button onClick={() => this.toggleModal('showStudentModal', student)}>View</button>
-                        <button onClick={() => this.toggleModal('showStudentModal', student)}>Edit</button> {/* stopped here*/}
+                        <button onClick={() => this.toggleModal('showEditStudentModal', student)}>Edit</button> {/* stopped here*/}
                         <button student='test' onClick={() => this.deleteStudent(index)}>Delete</button>
                     </th>
                 </tr>
@@ -86,7 +88,7 @@ export default class UserData extends Component {
     }
 
     toggleModal = (type, student) => {
-        // console.log(i)
+        console.log(type)
         if(this.state[type] === false) {
             this.setState({ [type]: true });
             if(student) this.setState({ student });
@@ -118,7 +120,7 @@ export default class UserData extends Component {
                     </table>
                     {this.state.showModal ? <StudentFormModal toggleModal={() => this.toggleModal('showModal')} /> : null}
                     {this.state.showStudentModal ? <StudentModal student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
-                    {this.state.showStudentModal ? <EditStudent student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
+                    {this.state.showEditStudentModal ? <EditStudent student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}
                     {/* <StudentModal /> */}
                 </div>
             </div>
