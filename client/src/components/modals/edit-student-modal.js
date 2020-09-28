@@ -12,17 +12,17 @@ export default class EditStudent extends Component {
         }
     }
 
-    // componentDidMount = () => {
-    //     this.setState({
-    //         // firstName: '',
-    //         // middleName: '',
-    //         // lastName: '',
-    //         // dob: '',
-    //         // address: '',
-    //         // contact: '',
-    //         // notes: '',
-    //     });
-    // }
+    componentDidMount = () => {
+        this.setState({
+            firstName: this.props.student.first,
+            middleName: this.props.student.middle,
+            lastName: this.props.student.last,
+            dob: this.props.student.dob,
+            address: this.props.student.address,
+            contact: this.props.student.contact,
+            notes: this.props.student.notes,
+        });
+    }
 
     changeHandler = (event) => {
         let name = event.target.name;
@@ -50,6 +50,7 @@ export default class EditStudent extends Component {
 
                     <label>first Name</label>
                     <input
+                        value={this.state.firstName}
                         type='text'
                         name='firstName'
                         placeholder='First Name'
@@ -58,6 +59,7 @@ export default class EditStudent extends Component {
 
                     <label>Middle Name</label>
                     <input
+                        value={this.state.middleName}
                         type='text'
                         name='middleName'
                         placeholder='Middle Name'
@@ -66,6 +68,7 @@ export default class EditStudent extends Component {
 
                     <label>Last Name</label>
                     <input
+                        value={this.state.lastName}
                         type='text'
                         name='lastName'
                         placeholder='Last Name'
@@ -74,6 +77,7 @@ export default class EditStudent extends Component {
 
                     <label>Date of Birth</label>
                     <input
+                        value={this.state.dob}
                         type='text'
                         name='dob'
                         placeholder='MM-DD-YYY'
@@ -82,6 +86,7 @@ export default class EditStudent extends Component {
 
                     <label>Address</label>
                     <input
+                        value={this.state.address}
                         type='text'
                         name='address'
                         placeholder='Address'
@@ -90,6 +95,7 @@ export default class EditStudent extends Component {
 
                     <label>Contact</label>
                     <input
+                        value={this.state.contact}
                         type='text'
                         name='contact'
                         placeholder='Contact'
@@ -98,13 +104,14 @@ export default class EditStudent extends Component {
 
                     <label>Notes</label>
                     <textarea
+                        value={this.state.notes}
                         type='text'
                         name='notes'
                         placeholder='Notes'
                         onChange={this.changeHandler}
                     />
 
-                    <button onClick={this.addStudent}>Save</button>
+                    <button onClick={this.addStudent}>Save</button>  {/* stopped here */}
 
                 </form>
             </ReactModal>

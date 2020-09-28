@@ -79,7 +79,7 @@ export default class UserData extends Component {
                     <th>{notes.length > 20 ? `${notes.slice(0, 20)}...` : notes}</th>
                     <th>
                         <button onClick={() => this.toggleModal('showStudentModal', student)}>View</button>
-                        <button onClick={() => this.toggleModal('showEditStudentModal', student)}>Edit</button> {/* stopped here*/}
+                        <button onClick={() => this.toggleModal('showEditStudentModal', student)}>Edit</button>
                         <button student='test' onClick={() => this.deleteStudent(index)}>Delete</button>
                     </th>
                 </tr>
