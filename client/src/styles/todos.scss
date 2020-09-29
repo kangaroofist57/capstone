@@ -26,6 +26,19 @@
             display: grid;
             grid-gap: 10px;
             justify-self: start;
+
+            .todo-container {
+                display: flex;
+                gap: 5px;
+
+                button {
+                    color: white;
+                }
+            }
         }
     }
+}
+
+.check {
+    background-color: green;
 }

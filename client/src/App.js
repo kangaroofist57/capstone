@@ -6,6 +6,8 @@ import {
   NavLink
 } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './styles/main.scss';
 
@@ -61,6 +63,16 @@ export default class APP extends Component {
     <NavLink key="2" to="/todos" activeClassName="active-link">Todos</NavLink>
   ]
 
+  logOut = () => {
+    let status = localStorage.getItem('loggedInStatus');
+    console.log('status');
+    if(status === 'true') {
+      localStorage.clear();
+      // this.history.push('/login');
+      window.location.reload({ forcedReload: false });
+    }
+  }
+
   render() {
     return(
       <div className="container">
@@ -77,7 +89,7 @@ export default class APP extends Component {
                 {this.state.loggedInStatus === true ? this.loggedInButtons() : null}
                 <NavLink to="/auth" activeClassName="active-link">{localStorage.getItem('loggedInStatus') === 'true'
                 ?
-                JSON.parse(localStorage.getItem('userInfo')).username
+                <div onClick={this.logOut}>{<FontAwesomeIcon icon={faSignOutAlt} />} {JSON.parse(localStorage.getItem('userInfo')).username}</div>
                 :
                 'Log in'}
                 </NavLink>

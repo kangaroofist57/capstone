@@ -79,6 +79,7 @@ export default class Login extends Component {
     axios.post('/api/newUser', { username: this.state.newUsername, password: this.state.newPassword }).then(data => {
       console.log(data);
     });
+    this.homeReload();
   }
 
   render() {

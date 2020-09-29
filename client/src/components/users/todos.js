@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default class Todos extends Component {
     constructor() {
@@ -103,10 +105,10 @@ export default class Todos extends Component {
                             {this.state.todos.map((todo, index) => {
                                 let rng = Math.random() * 10;
                                 if(!todo.done) return(
-                                    <div key={rng}>
-                                        <button onClick={() => this.toggleTodo(todo, index)}>done</button>
-                                        <button onClick={() => this.deleteTodo(index)}>delete</button>
-                                        {todo.name}
+                                    <div className='todo-container' key={rng}>
+                                        <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faCheck} />}</button>
+                                        <button className='delete' onClick={() => this.deleteTodo(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
+                                        <div>{todo.name}</div>
                                     </div>
                                 )
                             })}
@@ -119,7 +121,7 @@ export default class Todos extends Component {
                                 onChange={this.changeHandler}
                             />
                         </form>
-                            <button onClick={() => this.addTodo(this.state.todos, this.state.newTodo)}>Add</button>
+                            <button onClick={() => this.addTodo(this.state.todos, this.state.newTodo)}>Add Todo</button>
                     </div>
                     <div className='complete todos'>
                         <h3>Completed</h3>
@@ -127,10 +129,10 @@ export default class Todos extends Component {
                             {this.state.todos.map((todo, index) => {
                                 let rng = Math.random() * 10;
                                 if(todo.done) return(
-                                    <div key={rng}>
-                                        <button onClick={() => this.toggleTodo(todo, index)}>done</button>
-                                        <button onClick={() => this.deleteTodo(index)}>delete</button>
-                                        {todo.name}
+                                    <div className='todo-container' key={rng}>
+                                        <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faCheck} />}</button>
+                                        <button className='delete' onClick={() => this.deleteTodo(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
+                                        <div>{todo.name}</div>
                                     </div>
                                 )
                             })}

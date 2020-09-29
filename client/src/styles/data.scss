@@ -4,6 +4,7 @@
 
 .student-table {
     border: 5px solid white;
+    border-radius: 5px;
     padding: 5px;
     // align-self: center;
     margin-left: auto;
@@ -13,6 +14,10 @@
     .heading {
         background-color: $hover;
         color: black;
+
+        .plus {
+            background-color: green;
+        }
     }
     table, tr, th {
         // margin: auto;
@@ -24,7 +29,21 @@
             background-color: $hover;
             color: black;
         }
+
+        button {
+            color: white;
+        }
     }
+}
+
+.view {
+    background-color: purple;
+}
+.edit {
+    background-color: $hover;
+}
+.delete {
+    background-color: red;
 }
 
 .student-modal-notes {

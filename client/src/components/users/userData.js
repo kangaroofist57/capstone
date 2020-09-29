@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPlus, faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 
 import StudentFormModal from '../modals/add-student-form';
 import StudentModal from '../modals/student-modal';
@@ -57,12 +59,6 @@ export default class UserData extends Component {
         window.location.reload({ forcedReload: false });
     }
 
-    test = () => {
-        return(
-            <div>suh dude</div>
-        )
-    }
-
     renderStudents = () => {
         return this.state.students.map((student, index) => {
             let rng = Math.random() * 10;
@@ -78,9 +74,9 @@ export default class UserData extends Component {
                     <th>{contact.length > 20 ? `${contact.slice(0, 20)}...` : contact}</th>
                     <th>{notes.length > 20 ? `${notes.slice(0, 20)}...` : notes}</th>
                     <th>
-                        <button onClick={() => this.toggleModal('showStudentModal', student)}>View</button>
-                        <button onClick={() => this.toggleModal('showEditStudentModal', student, index)}>Edit</button>
-                        <button student='test' onClick={() => this.deleteStudent(index)}>Delete</button>
+                        <button className='view' onClick={() => this.toggleModal('showStudentModal', student)}>{<FontAwesomeIcon icon={faEye} />}</button>
+                        <button className='edit' onClick={() => this.toggleModal('showEditStudentModal', student, index)}>{<FontAwesomeIcon icon={faEdit} />}</button>
+                        <button className='delete' student='test' onClick={() => this.deleteStudent(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
                     </th>
                 </tr>
             );
@@ -113,7 +109,7 @@ export default class UserData extends Component {
                             <th>Contact</th>
                             <th>Notes</th>
                             <th>
-                                <button onClick={() => this.toggleModal('showModal')}>Add Student</button>
+                            <button className='plus' onClick={() => this.toggleModal('showModal')}>{<FontAwesomeIcon icon={faPlus} />}</button>
                             </th>
                         </tr>
                         {this.renderStudents()}
