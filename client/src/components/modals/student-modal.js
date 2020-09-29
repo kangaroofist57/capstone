@@ -34,7 +34,11 @@ export default class StudentModal extends Component {
                     <div>{student.dob}{isNaN(moment().diff(student.dob, 'years')) ? null : ` Age: ${moment().diff(student.dob, 'years')}`}</div>
                     <div>{student.address}</div>
                     <div>{student.contact}</div>
-                    <div>{student.notes}</div>
+                    <textarea
+                        className="student-modal-notes"
+                        readOnly
+                        value={student.notes}
+                    />
                 </div>
             </ReactModal>
         )

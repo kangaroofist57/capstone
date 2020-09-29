@@ -1,0 +1,30 @@
+.todos-container {
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    justify-content: center;
+    // width: 50%;
+    // margin-right: 100px;
+    // margin-left: 100px;
+
+    .todos {
+        color: black;
+        background-color: $hover;
+        height: 25%;
+        width: 300px;
+        display: grid;
+        grid-gap: 20px;
+        justify-items: center;
+        padding: 10px;
+
+        h3 {
+            border-bottom: black 2px solid;
+        }
+
+        .todo-list {
+            display: grid;
+            grid-gap: 10px;
+            justify-self: start;
+        }
+    }
+}
