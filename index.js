@@ -73,6 +73,41 @@ app.patch('/api/editStudent', function(req, res) {
     });
 });
 
+app.patch('/api/addTodo', function(req, res) {
+    const { userInfo, todos } = req.body;
+
+    // console.log(todos);
+    capstone.findByIdAndUpdate(userInfo._id, {
+        todos
+    }).then(data => {
+        console.log(todos);
+    }).catch(err => {
+        console.log('mongoe err', err);
+    });
+
+    // console.log(userInfo, todos);
+});
+
+app.patch('/api/toggleTodo', function(req, res) {
+    const { userInfo, todos } = req.body;
+    console.log(todos);
+    capstone.findByIdAndUpdate(userInfo._id, {
+        todos
+    }).then(data => {
+        console.log(data);
+    });
+});
+
+app.patch('/api/deleteTodo', function(req, res) {
+    const { userInfo, todos } = req.body;
+    // console.log(userInfo);
+    capstone.findByIdAndUpdate(userInfo._id, {
+        todos
+    }).then(data => {
+        console.log(data);
+    });
+})
+
 app.listen(port);
 
 console.log(`Listening on port ${port}`);

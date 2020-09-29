@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class Todos extends Component {
     constructor() {
@@ -9,17 +10,32 @@ export default class Todos extends Component {
         }
     }
 
+    componentDidMount = () => {
+        let { todos } = JSON.parse(localStorage.getItem('userInfo'));
+        console.log('yes');
+        this.setState({
+            todos
+        });
+    }
+
     addTodo = (todos, newTodo) => {
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'));
         newTodo = {
             name: newTodo,
             done: false,
             createdAt: new Date()
         }
-        console.log(todos, newTodo);
         todos.push(newTodo);
+        // console.log(todos);
+        axios.patch('/api/addTodo', { userInfo, todos }).then(data => console.log('todos')).catch(err => {
+            
+        });
         this.setState({
-            todos
-        })
+            todos,
+            newTodo: ''
+        });
+        userInfo.todos = todos;
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
     }
 
     changeHandler = (event) => {
@@ -30,30 +46,51 @@ export default class Todos extends Component {
 
     toggleTodo = (todo, index) => {
 
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'));
         let todos =  this.state.todos;
 
         if(!todo.done) {
             todo.done = true
-            // let todos =  this.state.todos[index] = todo;
-            // return console.log(todos);
             todos.splice(index, 1, todo);
+
+            axios.patch('/api/toggleTodo', {
+                userInfo,
+                todos
+            });
             this.setState({
                 todos
             });
+            userInfo.todos = todos;
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
         } else {
             todo.done = false
             todos.splice(index, 1, todo);
+            axios.patch('/api/toggleTodo', {
+                userInfo,
+                todos
+            });
             this.setState({
                 todos
             });
+            userInfo.todos = todos;
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
         }
         // console.log('todo', index);
     }
 
     deleteTodo = (index) => {
+
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'));
         let todos = this.state.todos;
+
         todos.splice(index, 1);
+        axios.patch('/api/deleteTodo', {
+            userInfo,
+            todos
+        });
         this.setState({ todos });
+        userInfo.todos = todos;
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
     }
     
      render() {
@@ -76,6 +113,7 @@ export default class Todos extends Component {
                         </div>
                         <form>
                             <input
+                                value={this.state.newTodo}
                                 placeholder='Add New Todo'
                                 name='newTodo'
                                 onChange={this.changeHandler}

@@ -40,6 +40,7 @@ export default class APP extends Component {
             });
 
             userInfo.students = data.students;
+            userInfo.todos = data.todos;
             localStorage.setItem('userInfo', JSON.stringify(userInfo));
           }
         }
