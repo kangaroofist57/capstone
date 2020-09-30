@@ -24,12 +24,15 @@ export default class APP extends Component {
     this.state = {
       username: null,
       password: null,
+      width: 0,
+      height: 0
     }
   }
 
   componentDidMount = () => {
 
-    // let status = false;
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
 
     axios.get('/api/creds').then(async response => {
       await response.data.forEach(data => {
@@ -51,6 +54,10 @@ export default class APP extends Component {
 
     // return status;
 
+  }
+
+  updateWindowDimensions = () => {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   loggedInPages = () => [

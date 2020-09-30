@@ -8,3 +8,5 @@
 > * In the terminal do
 > npm run update
 > * This should install all packages needed to successfully get the application running
+> * Now you can run
+> npm start

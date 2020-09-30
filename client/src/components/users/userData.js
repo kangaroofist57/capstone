@@ -6,6 +6,8 @@ import { faTrash, faPlus, faEdit, faEye, faCommentDots } from '@fortawesome/free
 import StudentFormModal from '../modals/add-student-form';
 import StudentModal from '../modals/student-modal';
 import EditStudent from '../modals/edit-student-modal';
+import RenderTable from './renderTable';
+import RenderMobileData from './renderMobileData';
 
 export default class UserData extends Component {
     constructor(props) {
@@ -23,10 +25,16 @@ export default class UserData extends Component {
             address: '',
             contact: '',
             notes: '',
+            width: 0,
+            height: 0
         }
     }
 
     componentDidMount = () => {
+
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+
         axios.get('/api/creds').then(response => {
             let userInfo = response.data.find(element => element._id === JSON.parse(localStorage.getItem('userInfo'))._id);
             // console.log(userInfo)
@@ -44,6 +52,10 @@ export default class UserData extends Component {
             });
         });
     }
+
+    updateWindowDimensions = () => {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+      }
 
     deleteStudent = (index) => {
         let newList = this.state.students;
@@ -67,12 +79,12 @@ export default class UserData extends Component {
             return (
                 <tr key={rng}>
                     <th>{index + 1}</th>
-                    <th>{first.length > 20 ? `${first.slice(0, 20)}...` : first}</th>
-                    <th>{middle.length > 20 ? `${middle.slice(0, 20)}...` : middle}</th>
-                    <th>{last.length > 20 ? `${last.slice(0, 20)}...` : last}</th>
-                    <th>{dob.length > 20 ? `${dob.slice(0, 20)}...` : dob}</th>
-                    <th>{address.length > 20 ? `${address.slice(0, 20)}...` : address}</th>
-                    <th>{contact.length > 20 ? `${contact.slice(0, 20)}...` : contact}</th>
+                    <th>{first.length > 20 ? <div>{`${first.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : first}</th>
+                    <th>{middle.length > 20 ? <div>{`${middle.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : middle}</th>
+                    <th>{last.length > 20 ? <div>{`${last.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : last}</th>
+                    <th>{dob.length > 20 ? <div>{`${dob.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : dob}</th>
+                    <th>{address.length > 20 ? <div>{`${address.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : address}</th>
+                    <th>{contact.length > 20 ? <div>{`${contact.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : contact}</th>
                     <th>{notes.length > 20 ? <div>{`${notes.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : notes}</th>
                     <th>
                         <button className='view' onClick={() => this.toggleModal('showStudentModal', student)}>{<FontAwesomeIcon icon={faEye} />}</button>
@@ -100,26 +112,10 @@ export default class UserData extends Component {
         return(
             <div className="data-body">
                 <div className="student-chart">
-                    <table className="student-table">
-                        <tr className="heading">
-                            <th>#</th>
-                            <th>First</th>
-                            <th>Middle</th>
-                            <th>Last</th>
-                            <th>Date of Birth</th>
-                            <th>Address</th>
-                            <th>Contact</th>
-                            <th>Notes</th>
-                            <th>
-                            <button className='plus' onClick={() => this.toggleModal('showModal')}>{<FontAwesomeIcon icon={faPlus} />}</button>
-                            </th>
-                        </tr>
-                        {this.renderStudents()}
-                    </table>
+                    {this.state.width > 600 ? <RenderTable toggleModal={this.toggleModal} renderStudents={this.renderStudents} /> : <RenderMobileData />}
                     {this.state.showModal ? <StudentFormModal toggleModal={() => this.toggleModal('showModal')} /> : null}
                     {this.state.showStudentModal ? <StudentModal student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
                     {this.state.showEditStudentModal ? <EditStudent index={this.state.index} student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}
-                    {/* <StudentModal /> */}
                 </div>
             </div>
         )
