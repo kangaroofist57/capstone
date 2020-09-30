@@ -21,8 +21,13 @@
     grid-gap: 10px;
     font-size: 20px;
 
-    .name-container {
+    .data-container {
         display: flex;
         gap: 5px;
+    }
+
+    .data-title {
+        font-weight: bold;
+        text-decoration: underline;
     }
 }

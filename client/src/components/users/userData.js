@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPlus, faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlus, faEdit, faEye, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
 import StudentFormModal from '../modals/add-student-form';
 import StudentModal from '../modals/student-modal';
@@ -66,13 +66,14 @@ export default class UserData extends Component {
             // console.log(student)
             return (
                 <tr key={rng}>
+                    <th>{index + 1}</th>
                     <th>{first.length > 20 ? `${first.slice(0, 20)}...` : first}</th>
                     <th>{middle.length > 20 ? `${middle.slice(0, 20)}...` : middle}</th>
                     <th>{last.length > 20 ? `${last.slice(0, 20)}...` : last}</th>
                     <th>{dob.length > 20 ? `${dob.slice(0, 20)}...` : dob}</th>
                     <th>{address.length > 20 ? `${address.slice(0, 20)}...` : address}</th>
                     <th>{contact.length > 20 ? `${contact.slice(0, 20)}...` : contact}</th>
-                    <th>{notes.length > 20 ? `${notes.slice(0, 20)}...` : notes}</th>
+                    <th>{notes.length > 20 ? <div>{`${notes.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : notes}</th>
                     <th>
                         <button className='view' onClick={() => this.toggleModal('showStudentModal', student)}>{<FontAwesomeIcon icon={faEye} />}</button>
                         <button className='edit' onClick={() => this.toggleModal('showEditStudentModal', student, index)}>{<FontAwesomeIcon icon={faEdit} />}</button>
@@ -101,6 +102,7 @@ export default class UserData extends Component {
                 <div className="student-chart">
                     <table className="student-table">
                         <tr className="heading">
+                            <th>#</th>
                             <th>First</th>
                             <th>Middle</th>
                             <th>Last</th>

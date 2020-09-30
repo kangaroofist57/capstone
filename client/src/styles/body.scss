@@ -1,9 +1,22 @@
 body {
     background-color: $background;
     color: white;
+    font-family: 'Lato', sans-serif;
 }
 
 .body-container {
     display: grid;
     grid-gap: 20px;
+}
+
+button {
+    background-color: $btn;
+    color: white;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: white !important;
+        color: black !important;
+        transition: 200ms;
+    }
 }

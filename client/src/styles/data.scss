@@ -28,6 +28,7 @@
         th:hover {
             background-color: $hover;
             color: black;
+            transition: 100ms;
         }
 
         button {

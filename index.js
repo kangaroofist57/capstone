@@ -32,7 +32,8 @@ app.post('/api/newUser', function(req, res) {
     let newUser = new capstone({
         username: req.body.username,
         password: req.body.password,
-        student: []
+        student: [],
+        todos: []
     });
     newUser.save();
 });
@@ -46,7 +47,7 @@ app.patch('/api/addStudent', function(req, res) {
         }).then(data => {
         console.log('data saved', data);
     }).catch(err => console.log('mongo error', err));
-    console.log(list);
+    // console.log(list);
 });
 
 app.patch('/api/deleteStudent', function(req, res) {
@@ -55,7 +56,7 @@ app.patch('/api/deleteStudent', function(req, res) {
     capstone.findByIdAndUpdate(req.body.userInfo._id, {
         students: newList
     }).then(data => {
-        console.log(data);
+        // console.log(data);
     }).catch((err) => {
         console.log(err)
     });
@@ -67,7 +68,7 @@ app.patch('/api/editStudent', function(req, res) {
     capstone.findByIdAndUpdate(userInfo._id, {
         students: oldList
     }).then(data => {
-        console.log(data);
+        // console.log(data);
     }).catch(err => {
         console.log(err);
     });
@@ -80,7 +81,7 @@ app.patch('/api/addTodo', function(req, res) {
     capstone.findByIdAndUpdate(userInfo._id, {
         todos
     }).then(data => {
-        console.log(todos);
+        // console.log(todos);
     }).catch(err => {
         console.log('mongoe err', err);
     });
@@ -90,11 +91,11 @@ app.patch('/api/addTodo', function(req, res) {
 
 app.patch('/api/toggleTodo', function(req, res) {
     const { userInfo, todos } = req.body;
-    console.log(todos);
+    // console.log(todos);
     capstone.findByIdAndUpdate(userInfo._id, {
         todos
     }).then(data => {
-        console.log(data);
+        // console.log(data);
     });
 });
 
@@ -104,7 +105,7 @@ app.patch('/api/deleteTodo', function(req, res) {
     capstone.findByIdAndUpdate(userInfo._id, {
         todos
     }).then(data => {
-        console.log(data);
+        // console.log(data);
     });
 })
 

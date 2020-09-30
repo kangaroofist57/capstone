@@ -22,6 +22,7 @@ export default class Todos extends Component {
 
     addTodo = (todos, newTodo) => {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if(!this.state.newTodo) return alert('Todo input field cannot be empty');
         newTodo = {
             name: newTodo,
             done: false,

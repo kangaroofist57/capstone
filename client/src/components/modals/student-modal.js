@@ -26,14 +26,35 @@ export default class StudentModal extends Component {
             }}>
                 <button className="student-form-close" onClick={this.props.toggleModal}>close</button>
                 <div className='student-container'>
-                    <div className="name-container">
+                    <div className="data-container">
+                        <div className='data-title'>Full Name:</div>
                         <div>{student.first}</div>
                         <div>{student.middle}</div>
                         <div>{student.last}</div>
                     </div>
-                    <div>{student.dob}{isNaN(moment().diff(student.dob, 'years')) ? null : ` Age: ${moment().diff(student.dob, 'years')}`}</div>
-                    <div>{student.address}</div>
-                    <div>{student.contact}</div>
+                    <div className='data-container'>
+                        <div className='data-title'>Date Of Birth:</div>
+                        <div>{student.dob}</div>
+                    </div>
+                    <div className='data-container'>
+                        <div className='data-title'>Age:</div>
+                        <div>
+                            {isNaN(moment().diff(student.dob, 'years'))
+                            ?
+                            null
+                            :
+                            <div>{moment().diff(student.dob, 'years')}</div>}
+                        </div>
+                    </div>
+                    <div className='data-container'>
+                        <div className='data-title'>Address:</div>
+                        <div>{student.address}</div>
+                    </div>
+                    <div className='data-container'>
+                        <div className='data-title'>Contact:</div>
+                        <div>{student.contact}</div>
+                    </div>
+                    <div className='data-title'>Notes:</div>
                     <textarea
                         className="student-modal-notes"
                         readOnly
