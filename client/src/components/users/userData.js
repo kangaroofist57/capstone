@@ -112,7 +112,7 @@ export default class UserData extends Component {
         return(
             <div className="data-body">
                 <div className="student-chart">
-                    {this.state.width > 600 ? <RenderTable toggleModal={this.toggleModal} renderStudents={this.renderStudents} /> : <RenderMobileData />}
+                    {this.state.width > 600 ? <RenderTable toggleModal={this.toggleModal} renderStudents={this.renderStudents} /> : <RenderMobileData renderStudents={this.renderStudents} />}
                     {this.state.showModal ? <StudentFormModal toggleModal={() => this.toggleModal('showModal')} /> : null}
                     {this.state.showStudentModal ? <StudentModal student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
                     {this.state.showEditStudentModal ? <EditStudent index={this.state.index} student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}

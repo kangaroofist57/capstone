@@ -11,11 +11,13 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './styles/main.scss';
 
+import admins from './configs/adminID.json';
 import Home from './components/pages/home';
 import Login from './components/pages/login';
 import NoMatch from './components/pages/noMatch';
 import UserData from './components/users/userData';
 import Todos from './components/users/todos';
+import Users from './components/pages/admin-pages/users';
 
 export default class APP extends Component {
 
@@ -80,6 +82,15 @@ export default class APP extends Component {
     }
   }
 
+  adminContent = () => {
+    return {
+      pages: [],
+      routes: [
+        <Route key="1" exact component={Users} path="/users" />
+      ]
+    }
+  }
+
   render() {
     return(
       <div className="container">
@@ -107,7 +118,7 @@ export default class APP extends Component {
               <Route exact component={Home} path="/" />
               <Route exact component={Login} path="/auth" />
               {this.state.loggedInStatus === true ? this.loggedInPages() : null}
-              {/* <Route exact component={UserData} path="/data" /> */}
+              {admins.adminID.includes(localStorage.getItem('id')) ? this.adminContent().routes : null}
               <Route component={NoMatch} />
             </Switch>
 

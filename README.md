@@ -12,3 +12,6 @@
 > * Now you can run
 
 >     npm start
+> # Admin Credentials
+> Username: YrzY0anVWaMaIV72pJac
+> Password: 1RJwA8eTh2EkOk1srx3d
