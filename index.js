@@ -23,6 +23,13 @@ app.get('/api/creds', function(req, res) {
     // res.send('this is a new test');
 });
 
+app.post('/api/deleteUser', function(req, res) {
+    const { _id } = req.body.findUser;
+    capstone.findByIdAndDelete(_id).then(() => {
+        
+    });
+});
+
 app.get('/', function(req, res) {
 
 });
@@ -45,7 +52,7 @@ app.patch('/api/addStudent', function(req, res) {
     capstone.findByIdAndUpdate(req.body.userInfo._id, {
             students: list
         }).then(data => {
-        console.log('data saved', data);
+        // console.log('data saved', data);
     }).catch(err => console.log('mongo error', err));
     // console.log(list);
 });

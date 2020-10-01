@@ -42,7 +42,7 @@ export default class Login extends Component {
           problems: 'Incorrect username'
         });
       });
-      console.log(response);
+      // console.log(response);
     }).catch(err => {
       console.log('axios Error', err);
     });
@@ -56,7 +56,7 @@ export default class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  createAccount = () => {
+  createAccount = async() => {
 
     setTimeout(() => {
       this.setState({
@@ -76,6 +76,16 @@ export default class Login extends Component {
       problems: 'Passwords do not match'
     });
 
+    let usernameCheck = false;
+    await axios.get('/api/creds').then(response => {
+      let userFind = response.data.find(user => user.username === this.state.newUsername);
+      if(userFind) {
+        usernameCheck = true;
+        this.setState({ problems: 'Username is already taken' });
+      }
+    });
+    // return;
+    if(usernameCheck) return;
     axios.post('/api/newUser', { username: this.state.newUsername, password: this.state.newPassword }).then(data => {
       console.log(data);
     });
@@ -86,19 +96,20 @@ export default class Login extends Component {
     return (
       <div className="app">
 
-        <div className="user-name">{localStorage.getItem('loggedInStatus') === 'true'
+        {/* <div className="user-name">{localStorage.getItem('loggedInStatus') === 'true'
         ?
         (<div>
           <div>Logged In As</div>
           <h1>{JSON.parse(localStorage.getItem('userInfo')).username}</h1>
         </div>)
         :
-        null}</div>
+        null}</div> */}
 
         <div className="log-in-form">
 
           <form>
 
+            <h1>Log In Here</h1>
             <label>username: </label>
             <input
               name="username"
@@ -126,6 +137,7 @@ export default class Login extends Component {
 
           <form>
 
+          <h1>Create Account Here</h1>
             <label>username: </label>
             <input
               name="newUsername"

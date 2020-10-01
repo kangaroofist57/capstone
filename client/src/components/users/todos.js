@@ -100,15 +100,17 @@ export default class Todos extends Component {
          return(
              <div>
                  <div className='todos-container'>
-                    <div className='incomplete todos'>
+                    <div className='incomplete todos '>
                         <h3>Todos</h3>
                         <div className='todo-list'>
                             {this.state.todos.map((todo, index) => {
                                 let rng = Math.random() * 10;
                                 if(!todo.done) return(
                                     <div className='todo-container' key={rng}>
-                                        <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faCheck} />}</button>
-                                        <button className='delete' onClick={() => this.deleteTodo(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
+                                        <div className='todo-buttons'>
+                                            <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faCheck} />}</button>
+                                            <button className='delete' onClick={() => this.deleteTodo(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
+                                        </div>
                                         <div>{todo.name}</div>
                                     </div>
                                 )
@@ -131,8 +133,10 @@ export default class Todos extends Component {
                                 let rng = Math.random() * 10;
                                 if(todo.done) return(
                                     <div className='todo-container' key={rng}>
-                                        <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faCheck} />}</button>
-                                        <button className='delete' onClick={() => this.deleteTodo(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
+                                        <div className='todo-buttons'>
+                                            <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faCheck} />}</button>
+                                            <button className='delete' onClick={() => this.deleteTodo(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
+                                        </div>
                                         <div>{todo.name}</div>
                                     </div>
                                 )

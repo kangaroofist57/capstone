@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import UserModal from '../../modals/user-modal';
+import admins from '../../../configs/adminID.json';
 
 export default class Users extends Component {
     constructor() {
@@ -15,27 +16,39 @@ export default class Users extends Component {
 
     componentDidMount = () => {
         axios.get('/api/creds').then(response => {
+            let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+            let filteredList = response.data.filter(user => user._id !== userInfo._id && !admins.adminID.includes(user._id));
             this.setState({
-                allUsers: response.data
+                allUsers: filteredList
             });
         })
     }
 
-    toggleUserModal = () => {
+    toggleUserModal = (user) => {
         if(this.state.userModal) {
             this.setState({ userModal: false });
         } else {
-            this.setState({ userModal: true })
+            this.setState({ user, userModal: true });
+            console.log(user);
         }
     }
 
-    deleteUser = () => {
+    deleteUser = (mongoID) => {
+        let newList = this.state.allUsers.filter(user => user._id !== mongoID);
+        let findUser = this.state.allUsers.find(user => user._id === mongoID);
+        console.log(findUser);
+        this.setState({ allUsers: newList });
 
+        axios.post('/api/deleteUser', { findUser }).then(response => {
+            console.log(response.data);
+        }).catch(err => {
+            console.log('axios err', err);
+        })
     }
 
     renderCards = () => {
-        console.log(this.state.allUsers)
-        return this.state.allUsers.map(user => (
+        // console.log(this.state.allUsers)
+        return this.state.allUsers.map((user) => (
             <div className='user-card'>
                 <div>
                     <div>Username:</div>
@@ -46,8 +59,8 @@ export default class Users extends Component {
                     <div>{user._id}</div>
                 </div>
                 <div className='user-button'>
-                    <button onClick={this.toggleUserModal}>view</button>
-                    <button onClick={this.deleteUser}>delete</button>
+                    <button onClick={() => this.toggleUserModal(user)}>view</button>
+                    <button onClick={() => this.deleteUser(user._id)}>delete</button>
                 </div>
             </div>
         ));
@@ -58,7 +71,7 @@ export default class Users extends Component {
             <div>
                 <div className='user-cards'>
                     {this.renderCards()}
-                    {this.state.userModal ? <UserModal toggleUserModal={this.toggleUserModal} /> : null}
+                    {this.state.userModal ? <UserModal user={this.state.user} toggleUserModal={this.toggleUserModal} /> : null}
                 </div>
             </div>
         )

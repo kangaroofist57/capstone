@@ -84,7 +84,9 @@ export default class APP extends Component {
 
   adminContent = () => {
     return {
-      pages: [],
+      buttons: [
+        <NavLink exact to='/users' activeClassName='active-link'>Users</NavLink>
+      ],
       routes: [
         <Route key="1" exact component={Users} path="/users" />
       ]
@@ -105,6 +107,7 @@ export default class APP extends Component {
               <div className="nav-bar">
                 <NavLink exact to="/" activeClassName="active-link">Home</NavLink>
                 {this.state.loggedInStatus === true ? this.loggedInButtons() : null}
+                {admins.adminID.includes(localStorage.getItem('id')) ? this.adminContent().buttons : null}
                 <NavLink to="/auth" activeClassName="active-link">{localStorage.getItem('loggedInStatus') === 'true'
                 ?
                 <div onClick={this.logOut}>{<FontAwesomeIcon icon={faSignOutAlt} />} {JSON.parse(localStorage.getItem('userInfo')).username}</div>

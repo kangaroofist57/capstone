@@ -4,6 +4,13 @@ import ReactModal from 'react-modal';
 ReactModal.setAppElement("#root");
 
 export default class userModal extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+
+        }
+    }
     render() {
         return(
             <ReactModal isOpen={true} on style={{
@@ -17,6 +24,11 @@ export default class userModal extends Component {
                 }
             }}>
                 <button className="student-form-close" onClick={this.props.toggleUserModal}>close</button>
+                <textarea
+                    className='user-text-area'
+                    value={JSON.stringify(this.props.user, null, 4)}
+                    readOnly
+                />
             </ReactModal>
         )
     }

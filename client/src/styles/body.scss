@@ -10,7 +10,7 @@ body {
 }
 
 button {
-    background-color: $btn;
+    background-color: $hover;
     color: white;
     border-radius: 5px;
 
@@ -19,4 +19,12 @@ button {
         color: black !important;
         transition: 200ms;
     }
+}
+
+a:hover {
+    background-color: $hover !important;
+}
+
+.active-link {
+    border: 1px solid white;
 }
