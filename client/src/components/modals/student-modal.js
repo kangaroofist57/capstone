@@ -5,25 +5,24 @@ import moment from 'moment';
 ReactModal.setAppElement("#root");
 
 export default class StudentModal extends Component {
-
-    constructor(props) {
-        super(props)
-    }
+    
     render() {
 
         let student = this.props.student;
+        let { width } = this.props.dim;
         
         return(
             <ReactModal isOpen={true} on style={{
                 content: {
                     backgroundColor: '#063852',
-                    top: "25%",
-                    left: '25%',
-                    bottom: '25%',
-                    right: '25%',
+                    top: width > 700 ? '25%' : '10%',
+                    left: width > 700 ? '25%' : '0%',
+                    bottom: width > 700 ? '25%' : '10%',
+                    right: width > 700 ? '25%' : '0%',
                     borderRadius: '5px',
                 }
             }}>
+                {/* {this.props.dim.width} */}
                 <button className="student-form-close" onClick={this.props.toggleModal}>close</button>
                 <div className='student-container'>
                     <div className="data-container">
@@ -31,6 +30,10 @@ export default class StudentModal extends Component {
                         <div>{student.first}</div>
                         <div>{student.middle}</div>
                         <div>{student.last}</div>
+                    </div>
+                    <div className="data-container">
+                        <div className='data-title'>Gender:</div>
+                        <div>{student.gender}</div>
                     </div>
                     <div className='data-container'>
                         <div className='data-title'>Date Of Birth:</div>

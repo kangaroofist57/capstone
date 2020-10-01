@@ -14,7 +14,15 @@ export default class Users extends Component {
         }
     }
 
+    updateWindowDimensions = () => {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+      }
+
     componentDidMount = () => {
+
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+
         axios.get('/api/creds').then(response => {
             let userInfo = JSON.parse(localStorage.getItem('userInfo'))
             let filteredList = response.data.filter(user => user._id !== userInfo._id && !admins.adminID.includes(user._id));
@@ -71,7 +79,7 @@ export default class Users extends Component {
             <div>
                 <div className='user-cards'>
                     {this.renderCards()}
-                    {this.state.userModal ? <UserModal user={this.state.user} toggleUserModal={this.toggleUserModal} /> : null}
+                    {this.state.userModal ? <UserModal dim={{ width: this.state.width, height: this.state.height}} user={this.state.user} toggleUserModal={this.toggleUserModal} /> : null}
                 </div>
             </div>
         )

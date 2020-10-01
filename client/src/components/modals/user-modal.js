@@ -16,10 +16,10 @@ export default class userModal extends Component {
             <ReactModal isOpen={true} on style={{
                 content: {
                     backgroundColor: '#063852',
-                    top: "25%",
-                    left: '25%',
-                    bottom: '25%',
-                    right: '25%',
+                    top: this.props.dim.width > 700 ? '25%' : '10%',
+                    left: this.props.dim.width > 700 ? '25%' : '0%',
+                    bottom: this.props.dim.width > 700 ? '25%' : '10%',
+                    right: this.props.dim.width > 700 ? '25%' : '0%',
                     borderRadius: '5px',
                 }
             }}>

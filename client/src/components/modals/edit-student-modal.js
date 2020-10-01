@@ -18,6 +18,7 @@ export default class EditStudent extends Component {
             first: this.props.student.first,
             middle: this.props.student.middle,
             last: this.props.student.last,
+            gender: this.props.student.gender,
             dob: this.props.student.dob,
             address: this.props.student.address,
             contact: this.props.student.contact,
@@ -32,9 +33,9 @@ export default class EditStudent extends Component {
     }
 
     editStudent = () => {
-        let index = this.props.index;
+        // let index = this.props.index;
         let oldList = JSON.parse(localStorage.getItem('userInfo')).students;
-        let changedStudent = oldList[index] = this.state
+        // let changedStudent = oldList[index] = this.state;
         // return console.log(oldList);
         axios.patch('/api/editStudent', {
             userInfo: JSON.parse(localStorage.getItem('userInfo')),
@@ -47,16 +48,16 @@ export default class EditStudent extends Component {
 
     render() {
 
-        let student = this.props.student;
+        // let student = this.props.student;
         
         return(
             <ReactModal isOpen={true} on style={{
                 content: {
                     backgroundColor: '#063852',
-                    top: "25%",
-                    left: '25%',
-                    bottom: '25%',
-                    right: '25%',
+                    top: this.props.dim.width > 700 ? "20%" : '10%',
+                    left: this.props.dim.width > 700 ? "25%" : '0%',
+                    bottom: this.props.dim.width > 700 ? "20%" : '10%',
+                    right: this.props.dim.width > 700 ? "25%" : '0%',
                     borderRadius: '5px',
                 }
             }}>
@@ -87,6 +88,15 @@ export default class EditStudent extends Component {
                         type='text'
                         name='last'
                         placeholder='Last Name'
+                        onChange={this.changeHandler}
+                    />
+
+                    <label>Gender</label>
+                    <input
+                        value={this.state.gender || ''}
+                        type='text'
+                        name='gender'
+                        placeholder='Gender'
                         onChange={this.changeHandler}
                     />
 

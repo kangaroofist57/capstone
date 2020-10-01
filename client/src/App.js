@@ -85,7 +85,7 @@ export default class APP extends Component {
   adminContent = () => {
     return {
       buttons: [
-        <NavLink exact to='/users' activeClassName='active-link'>Users</NavLink>
+        <NavLink key='1' exact to='/users' activeClassName='active-link'>Users</NavLink>
       ],
       routes: [
         <Route key="1" exact component={Users} path="/users" />

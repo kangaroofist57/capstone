@@ -19,6 +19,7 @@ export default class RenderTable extends Component {
                 <th>First</th>
                 <th>Middle</th>
                 <th>Last</th>
+                <th>Gender</th>
                 <th>Date of Birth</th>
                 <th>Address</th>
                 <th>Contact</th>

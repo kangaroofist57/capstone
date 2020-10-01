@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPlus, faEdit, faEye, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faEye, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
 import StudentFormModal from '../modals/add-student-form';
 import StudentModal from '../modals/student-modal';
@@ -21,6 +21,7 @@ export default class UserData extends Component {
             first: '',
             middle: '',
             last: '',
+            gender: '',
             dob: '',
             address: '',
             contact: '',
@@ -44,6 +45,7 @@ export default class UserData extends Component {
                     first:'No',
                     middle: 'Students',
                     last: 'Availabe',
+                    gender: 'N/A',
                     dob: 'N/A',
                     address: 'N/A',
                     contact: 'N/A',
@@ -74,7 +76,7 @@ export default class UserData extends Component {
     renderStudents = () => {
         return this.state.students.map((student, index) => {
             let rng = Math.random() * 10;
-            let { first, middle, last, dob, address, contact, notes } = student;
+            let { first, middle, last, gender, dob, address, contact, notes } = student;
             // console.log(student)
             return (
                 <tr key={rng}>
@@ -82,6 +84,7 @@ export default class UserData extends Component {
                     <th>{first.length > 20 ? <div>{`${first.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : first}</th>
                     <th>{middle.length > 20 ? <div>{`${middle.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : middle}</th>
                     <th>{last.length > 20 ? <div>{`${last.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : last}</th>
+                    <th>{last.gender > 20 ? <div>{`${last.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : gender}</th>
                     <th>{dob.length > 20 ? <div>{`${dob.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : dob}</th>
                     <th>{address.length > 20 ? <div>{`${address.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : address}</th>
                     <th>{contact.length > 20 ? <div>{`${contact.slice(0, 20)} `}{<FontAwesomeIcon icon={faCommentDots} />}</div> : contact}</th>
@@ -112,11 +115,17 @@ export default class UserData extends Component {
         return(
             <div className="data-body">
                 <div className="student-chart">
-                    {this.state.width > 600 ? <RenderTable toggleModal={this.toggleModal} renderStudents={this.renderStudents} /> : <RenderMobileData renderStudents={this.renderStudents} />}
-                    {this.state.showModal ? <StudentFormModal toggleModal={() => this.toggleModal('showModal')} /> : null}
-                    {this.state.showStudentModal ? <StudentModal student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
-                    {this.state.showEditStudentModal ? <EditStudent index={this.state.index} student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}
+                    {this.state.width > 800 ? <RenderTable toggleModal={this.toggleModal} renderStudents={this.renderStudents} /> : <RenderMobileData toggleModal={this.toggleModal} renderStudents={this.renderStudents} />}
+                    {this.state.showModal ? <StudentFormModal dim={{ width: this.state.width, height: this.state.height}} toggleModal={() => this.toggleModal('showModal')} /> : null}
+                    {this.state.showStudentModal ? <StudentModal dim={{ width: this.state.width, height: this.state.height}} student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
+                    {this.state.showEditStudentModal ? <EditStudent dim={{ width: this.state.width, height: this.state.height}} index={this.state.index} student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}
                 </div>
+                {/* <button onClick={() => console.log(this.renderStudents()[0].props)}>test</button> */}
+                {/* {this.renderStudents()[0].props} */}
+                {/* {this.renderStudents().map(trElement => {
+                    let smaller = trElement.props.children.filter((element, index) =>  index < 4 || index > 8);
+                    return smaller;
+                })} */}
             </div>
         )
     }

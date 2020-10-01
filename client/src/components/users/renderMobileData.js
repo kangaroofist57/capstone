@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPlus, faEdit, faEye, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 export default class RenderMobileData extends Component {
     constructor() {
@@ -11,7 +11,17 @@ export default class RenderMobileData extends Component {
         }
     }
 
+    renderSmallerData = () => {
+        return this.props.renderStudents().map(trElement => {
+            let smaller = trElement.props.children.filter((element, index) =>  index < 4 || index > 8);
+            return (
+            <tr>{smaller}</tr>
+            );
+        })
+    }
+
     render() {
+        // console.log(this.renderSmallerData());
         return(
             <table className="student-table">
             <tr className="heading">
@@ -19,15 +29,15 @@ export default class RenderMobileData extends Component {
                 <th>First</th>
                 <th>Middle</th>
                 <th>Last</th>
-                <th>Date of Birth</th>
-                <th>Address</th>
-                <th>Contact</th>
-                <th>Notes</th>
                 <th>
                 <button className='plus' onClick={() => this.props.toggleModal('showModal')}>{<FontAwesomeIcon icon={faPlus} />}</button>
                 </th>
             </tr>
-            {this.props.renderStudents()}
+            {this.renderSmallerData()}
+            {/* {this.props.renderStudents().map(trElement => {
+                    let smaller = trElement.props.children.filter((element, index) =>  index < 4 || index > 8);
+                    return smaller;
+                })} */}
         </table>
         )
     }
