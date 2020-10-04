@@ -38,6 +38,7 @@ export default class StudentFormModal extends Component {
                 first: this.state.firstName || '',
                 middle: this.state.middleName || '',
                 last: this.state.lastName || '',
+                last: this.state.gender || '',
                 dob: this.state.dob || '',
                 address: this.state.address || '',
                 contact: this.state.contact || '',
@@ -82,6 +83,14 @@ export default class StudentFormModal extends Component {
                         type='text'
                         name='lastName'
                         placeholder='Last Name'
+                        onChange={this.changeHandler}
+                    />
+
+                    <label>gender</label>
+                    <input
+                        type='text'
+                        name='gender'
+                        placeholder='Gender'
                         onChange={this.changeHandler}
                     />
 
