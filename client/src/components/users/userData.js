@@ -100,7 +100,7 @@ export default class UserData extends Component {
     }
 
     toggleModal = (type, student, index) => {
-        console.log(type)
+        console.log(student)
         if(this.state[type] === false) {
             this.setState({ [type]: true });
             if(student) this.setState({ student, index });

@@ -33,8 +33,9 @@ export default class EditStudent extends Component {
     }
 
     editStudent = () => {
-        // let index = this.props.index;
+        let index = this.props.index;
         let oldList = JSON.parse(localStorage.getItem('userInfo')).students;
+        oldList.splice(index, 1, this.state);
         // let changedStudent = oldList[index] = this.state;
         // return console.log(oldList);
         axios.patch('/api/editStudent', {
@@ -136,9 +137,9 @@ export default class EditStudent extends Component {
                         onChange={this.changeHandler}
                     />
 
-                    <button onClick={this.editStudent}>Save</button>  {/* stopped here */}
 
                 </form>
+                    <button onClick={this.editStudent}>Save</button>  {/* stopped here */}
 
 
             </ReactModal>

@@ -27,9 +27,15 @@
         border-collapse: collapse;
         padding: 10px;
 
-        th:hover {
-            background-color: $hover;
-            color: black;
+        // th:hover {
+        //     background-color: $hover;
+        //     color: black;
+        //     transition: 100ms;
+        // }
+
+        &:hover {
+            background-color: $chart-hover;
+            // color: white;
             transition: 100ms;
         }
 
