@@ -114,7 +114,11 @@ app.patch('/api/deleteTodo', function(req, res) {
     }).then(data => {
         // console.log(data);
     });
-})
+});
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
 
 app.listen(port);
 

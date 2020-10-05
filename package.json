@@ -7,7 +7,9 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "client": "npm start --prefix client",
     "server": "nodemon .",
-    "update": "npm install && cd client && npm install"
+    "update": "npm install && cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run update && npm run build"
   },
   "keywords": [],
   "author": "daniel solano <solanodaniel57@yahoo.com>",
