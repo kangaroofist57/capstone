@@ -15,6 +15,7 @@ app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(express.static('client/build'));
 
 app.get('/api/creds', function(req, res) {
     capstone.find({}).then(data => {
@@ -115,10 +116,6 @@ app.patch('/api/deleteTodo', function(req, res) {
         // console.log(data);
     });
 });
-
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-}
 
 app.listen(port);
 
