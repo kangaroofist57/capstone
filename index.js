@@ -3,6 +3,7 @@ const capstone = require('./server/models/capstone');
 const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 const mongoose = require('./server/mongoose');
+const path = require('path');
 
 const port = process.env.PORT || 4000;
 const app = express();
@@ -15,8 +16,7 @@ app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(express.static('client/build'));
-
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/api/creds', function(req, res) {
     capstone.find({}).then(data => {
         res.send(data);
