@@ -23,6 +23,12 @@ app.get('/api/creds', function(req, res) {
     });
     // res.send('this is a new test');
 });
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (rew, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
 
 app.post('/api/deleteUser', function(req, res) {
     const { _id } = req.body.findUser;

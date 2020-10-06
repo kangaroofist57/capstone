@@ -9,7 +9,7 @@
     "server": "nodemon .",
     "update": "npm install && cd client && npm install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run update && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "daniel solano <solanodaniel57@yahoo.com>",

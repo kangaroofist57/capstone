@@ -1,4 +1,4 @@
 node_modules/
 client/build/
-.env
-client/src/configs/adminID.json
+# .env
+# client/src/configs/adminID.json
