@@ -16,19 +16,21 @@ app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+// app.use('/api/creds', require('./server/models/capstone'));
 app.use(express.static(path.join(__dirname, 'client/build')));
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
+
 app.get('/api/creds', function(req, res) {
     capstone.find({}).then(data => {
         res.send(data);
     });
     // res.send('this is a new test');
 });
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('*', (rew, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    })
-}
 
 app.post('/api/deleteUser', function(req, res) {
     const { _id } = req.body.findUser;
