@@ -7,6 +7,12 @@ const path = require('path');
 
 const port = process.env.PORT || 4000;
 const app = express();
+const clientRoutes = [
+    'users',
+    'data',
+    'todos',
+    'auth'
+];
 
 // return capstone.find({}).then(data => {
 //     console.log(data);
@@ -17,13 +23,23 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 // app.use('/api/creds', require('./server/models/capstone'));
+// app.get('*', function(req, res) {
+//     // res.send('ok');
+// })
 app.use(express.static(path.join(__dirname, 'client/build')));
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+clientRoutes.forEach(route => {
+    app.get(`/${route}`, function(req, res) {
+        res.sendFile(path.resolve(__dirname, 'client/build/index.html'));
     });
-}
+});
+// if(process.env.NODE_ENV === 'production') {
+//     console.log('Danny Solami');
+//     app.use(express.static('client/build'));
+//     // app.use(express.static(path.join(__dirname, 'client/build')));
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//     });
+// }
 
 app.get('/api/creds', function(req, res) {
     capstone.find({}).then(data => {
