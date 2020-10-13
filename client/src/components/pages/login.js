@@ -120,6 +120,7 @@ export default class Login extends Component {
 
             <label>password: </label>
             <input
+              autoComplete='new-password'
               name="password"
               placeholder="Password"
               type="password"
@@ -141,21 +142,23 @@ export default class Login extends Component {
             <label>username: </label>
             <input
               name="newUsername"
-              placeholder="Username"
+              placeholder="New Username"
               type="username"
               onChange={this.changeHandler}
             />
 
             <label>password: </label>
             <input
+              autoComplete='new-password'
               name="newPassword"
-              placeholder="Password"
+              placeholder="New Password"
               type="password"
               onChange={this.changeHandler}
             />
 
             <label>confirm password: </label>
             <input
+              autoComplete='new-password'
               name="confirmPassword"
               placeholder="Confirm Password"
               type="password"

@@ -1,0 +1,35 @@
+.images-container {
+    display: grid;
+    gap: 10px;
+    // justify-items: center;
+
+    .image-container {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+        font-size: 20px;
+
+        .image-heading {
+            font-size: 25px;
+            border-bottom: 1px solid white;
+        }
+
+        .home-image {
+            width: 50%;
+        }
+
+        .button-image {
+            width: 25%;
+        }
+
+        @media (max-width: 700px) {
+            .home-image {
+                width: 100%;
+            }
+
+            .button-image {
+                width: 50%;
+            }
+        }
+    }
+}

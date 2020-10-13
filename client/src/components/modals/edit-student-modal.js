@@ -137,9 +137,9 @@ export default class EditStudent extends Component {
                         onChange={this.changeHandler}
                     />
 
+                    <button onClick={this.editStudent}>Save</button>  {/* stopped here */}
 
                 </form>
-                    <button onClick={this.editStudent}>Save</button>  {/* stopped here */}
 
 
             </ReactModal>

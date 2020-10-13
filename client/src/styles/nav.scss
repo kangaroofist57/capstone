@@ -10,6 +10,12 @@
     .heading {
         font-size: 30px;
         border-bottom: 2px solid white;
+        color: white;
+        text-decoration: none;
+
+        &:hover {
+            background-color: $btn !important;
+        }
     }
 
     .nav-bar {

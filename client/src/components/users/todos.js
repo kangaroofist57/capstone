@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faCheck, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default class Todos extends Component {
     constructor() {
         super()
 
         this.state = {
-            todos: []
+            todos: [],
+            todoProblem: null
         }
     }
 
@@ -22,7 +23,18 @@ export default class Todos extends Component {
 
     addTodo = (todos, newTodo) => {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if(!this.state.newTodo) return alert('Todo input field cannot be empty');
+        if(!this.state.newTodo) {
+            this.setState({
+                todoProblem: 'Please type a todo!'
+            });
+            setTimeout(() => {
+                this.setState({
+                    todoProblem: null
+                });
+            }, 4000);
+            return;
+        }
+        // alert('Todo input field cannot be empty');
         newTodo = {
             name: newTodo,
             done: false,
@@ -124,6 +136,7 @@ export default class Todos extends Component {
                                 onChange={this.changeHandler}
                             />
                         </form>
+                            <div className='todo-problem'>{this.state.todoProblem}</div>
                             <button onClick={() => this.addTodo(this.state.todos, this.state.newTodo)}>Add Todo</button>
                     </div>
                     <div className='complete todos'>
@@ -134,7 +147,7 @@ export default class Todos extends Component {
                                 if(todo.done) return(
                                     <div className='todo-container' key={rng}>
                                         <div className='todo-buttons'>
-                                            <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faCheck} />}</button>
+                                            <button className='check' onClick={() => this.toggleTodo(todo, index)}>{<FontAwesomeIcon icon={faArrowLeft} />}</button>
                                             <button className='delete' onClick={() => this.deleteTodo(index)}>{<FontAwesomeIcon icon={faTrash} />}</button>
                                         </div>
                                         <div>{todo.name}</div>

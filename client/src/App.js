@@ -100,9 +100,7 @@ export default class APP extends Component {
 
           <div className="body-container">
             <div className="nav-heading">
-              <div className="heading">
-                Teacher Tools
-              </div>
+              <NavLink exact to='/' className='heading'>Teacher Tools</NavLink>
 
               <div className="nav-bar">
                 <NavLink exact to="/" activeClassName="active-link">Home</NavLink>

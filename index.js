@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
 const mongoose = require('./server/mongoose');
 const path = require('path');
+const nodemon = require('nodemon');
 
 const port = process.env.PORT || 4000;
 const app = express();
@@ -11,7 +12,7 @@ const clientRoutes = [
     'users',
     'data',
     'todos',
-    'auth'
+    'auth',
 ];
 
 // return capstone.find({}).then(data => {
@@ -42,6 +43,7 @@ clientRoutes.forEach(route => {
 // }
 
 app.get('/api/creds', function(req, res) {
+    // res.sendFile(path.resolve(__dirname, 'client/build/index.html'));
     capstone.find({}).then(data => {
         res.send(data);
     });

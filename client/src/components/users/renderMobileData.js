@@ -24,16 +24,19 @@ export default class RenderMobileData extends Component {
         // console.log(this.renderSmallerData());
         return(
             <table className="student-table">
-            <tr className="heading">
-                <th>#</th>
-                <th>First</th>
-                <th>Middle</th>
-                <th>Last</th>
-                <th>
-                <button className='plus' onClick={() => this.props.toggleModal('showModal')}>{<FontAwesomeIcon icon={faPlus} />}</button>
-                </th>
-            </tr>
-            {this.renderSmallerData()}
+                <tr>
+                    <th colSpan='5'>Student Chart</th>
+                </tr>
+                <tr className="heading">
+                    <th>#</th>
+                    <th>First</th>
+                    <th>Middle</th>
+                    <th>Last</th>
+                    <th>
+                    <button className='plus' onClick={() => this.props.toggleModal('showModal')}>{<FontAwesomeIcon icon={faPlus} />}</button>
+                    </th>
+                </tr>
+                {this.renderSmallerData()}
             {/* {this.props.renderStudents().map(trElement => {
                     let smaller = trElement.props.children.filter((element, index) =>  index < 4 || index > 8);
                     return smaller;

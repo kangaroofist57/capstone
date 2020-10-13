@@ -38,7 +38,7 @@ export default class StudentFormModal extends Component {
                 first: this.state.firstName || '',
                 middle: this.state.middleName || '',
                 last: this.state.lastName || '',
-                last: this.state.gender || '',
+                gender: this.state.gender || '',
                 dob: this.state.dob || '',
                 address: this.state.address || '',
                 contact: this.state.contact || '',
