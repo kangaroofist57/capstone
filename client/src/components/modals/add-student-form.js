@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import axios from 'axios';
 
+import { secretRoute } from '../../configs/adminID.json';
+
 ReactModal.setAppElement("#root");
 
 export default class StudentFormModal extends Component {
@@ -14,7 +16,7 @@ export default class StudentFormModal extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('/api/creds').then(response => {
+        axios.get(`/api/${secretRoute}`).then(response => {
             let userInfo = response.data.find(user => user._id === JSON.parse(localStorage.getItem('userInfo'))._id)
             console.log('test', response.data)
             this.setState({
@@ -31,7 +33,7 @@ export default class StudentFormModal extends Component {
 
     addStudent = () => {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        axios.patch('/api/addStudent', {
+        axios.post('/api/addStudent', {
             userInfo,
             students: this.state.students,
             info: {

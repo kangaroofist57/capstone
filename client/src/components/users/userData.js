@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faEye, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
+import { secretRoute } from '../../configs/adminID.json';
 import StudentFormModal from '../modals/add-student-form';
 import StudentModal from '../modals/student-modal';
 import EditStudent from '../modals/edit-student-modal';
@@ -36,7 +37,7 @@ export default class UserData extends Component {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
 
-        axios.get('/api/creds').then(response => {
+        axios.get(`/api/${secretRoute}`).then(response => {
             let userInfo = response.data.find(element => element._id === JSON.parse(localStorage.getItem('userInfo'))._id);
             // console.log(userInfo)
             this.setState({
@@ -64,7 +65,7 @@ export default class UserData extends Component {
         newList.splice(index, 1);
         // return console.log(arr);
         let userInfo =  JSON.parse(localStorage.getItem('userInfo'));
-        axios.patch('/api/deleteStudent', {
+        axios.post('/api/deleteStudent', {
             userInfo,
             newList
         }).then(data => {

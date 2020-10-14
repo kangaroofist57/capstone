@@ -42,11 +42,6 @@ export default class Home extends Component {
                         <img className='button-image' src={studentButtonsImage}/>
                     </div>
 
-                    {/* <div className='image-container'>
-                        <div className='image-heading'>Buttons</div>
-                        <img className='home-image' src={studentButtonsImage}/>
-                    </div> */}
-
                 </div>
             </div>
         )

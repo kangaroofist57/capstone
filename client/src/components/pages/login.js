@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { secretRoute } from '../../configs/adminID.json';
+
 export default class Login extends Component {
 
   constructor() {
@@ -20,7 +22,7 @@ export default class Login extends Component {
     setTimeout(() => {
       this.setState({ problems: null })
     }, 4000);
-    await axios.get('/api/creds').then(response => {
+    await axios.get(`/api/${secretRoute}`).then(response => {
       if(localStorage.getItem('loggedInStatus') === 'true') {
         localStorage.clear();
         this.homeReload();
@@ -77,7 +79,7 @@ export default class Login extends Component {
     });
 
     let usernameCheck = false;
-    await axios.get('/api/creds').then(response => {
+    await axios.get(`/api/${secretRoute}`).then(response => {
       let userFind = response.data.find(user => user.username === this.state.newUsername);
       if(userFind) {
         usernameCheck = true;

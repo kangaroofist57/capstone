@@ -1,0 +1,14 @@
+.no-match {
+    display: grid;
+    justify-items: center;
+
+
+    .return-home {
+        font-size: 30px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: $hover;
+    }
+}

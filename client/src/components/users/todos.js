@@ -42,7 +42,7 @@ export default class Todos extends Component {
         }
         todos.push(newTodo);
         // console.log(todos);
-        axios.patch('/api/addTodo', { userInfo, todos }).then(data => console.log('todos')).catch(err => {
+        axios.post('/api/addTodo', { userInfo, todos }).then(data => console.log('todos')).catch(err => {
             
         });
         this.setState({
@@ -68,7 +68,7 @@ export default class Todos extends Component {
             todo.done = true
             todos.splice(index, 1, todo);
 
-            axios.patch('/api/toggleTodo', {
+            axios.post('/api/toggleTodo', {
                 userInfo,
                 todos
             });
@@ -80,7 +80,7 @@ export default class Todos extends Component {
         } else {
             todo.done = false
             todos.splice(index, 1, todo);
-            axios.patch('/api/toggleTodo', {
+            axios.post('/api/toggleTodo', {
                 userInfo,
                 todos
             });
@@ -99,7 +99,7 @@ export default class Todos extends Component {
         let todos = this.state.todos;
 
         todos.splice(index, 1);
-        axios.patch('/api/deleteTodo', {
+        axios.post('/api/deleteTodo', {
             userInfo,
             todos
         });

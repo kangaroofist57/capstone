@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import UserModal from '../../modals/user-modal';
-import admins from '../../../configs/adminID.json';
+import admins, { secretRoute } from '../../../configs/adminID.json';
 
 export default class Users extends Component {
     constructor() {
@@ -23,7 +23,7 @@ export default class Users extends Component {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
 
-        axios.get('/api/creds').then(response => {
+        axios.get(`/api/${secretRoute}`).then(response => {
             let userInfo = JSON.parse(localStorage.getItem('userInfo'))
             let filteredList = response.data.filter(user => user._id !== userInfo._id && !admins.adminID.includes(user._id));
             this.setState({

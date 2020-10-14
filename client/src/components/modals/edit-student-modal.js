@@ -38,7 +38,7 @@ export default class EditStudent extends Component {
         oldList.splice(index, 1, this.state);
         // let changedStudent = oldList[index] = this.state;
         // return console.log(oldList);
-        axios.patch('/api/editStudent', {
+        axios.post('/api/editStudent', {
             userInfo: JSON.parse(localStorage.getItem('userInfo')),
             oldList
         }).catch(err => {

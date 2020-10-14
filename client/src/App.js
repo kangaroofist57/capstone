@@ -11,7 +11,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './styles/main.scss';
 
-import admins from './configs/adminID.json';
+import admins, { secretRoute } from './configs/adminID.json';
 import Home from './components/pages/home';
 import Login from './components/pages/login';
 import NoMatch from './components/pages/noMatch';
@@ -36,7 +36,7 @@ export default class APP extends Component {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
 
-    axios.get('/api/creds').then(async response => {
+    axios.get(`/api/${secretRoute}`).then(async response => {
       await response.data.forEach(data => {
         if(localStorage.getItem('userInfo')) {
           let userInfo = JSON.parse(localStorage.getItem('userInfo'));

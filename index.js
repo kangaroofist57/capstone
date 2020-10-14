@@ -6,6 +6,7 @@ const mongoose = require('./server/mongoose');
 const path = require('path');
 const nodemon = require('nodemon');
 
+const { secretRoute } = require('./client/src/configs/adminID.json');
 const port = process.env.PORT || 4000;
 const app = express();
 const clientRoutes = [
@@ -23,7 +24,7 @@ app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-// app.use('/api/creds', require('./server/models/capstone'));
+// app.use(`/api/${secretRoute}`, require('./server/models/capstone'));
 // app.get('*', function(req, res) {
 //     // res.send('ok');
 // })
@@ -42,7 +43,7 @@ clientRoutes.forEach(route => {
 //     });
 // }
 
-app.get('/api/creds', function(req, res) {
+app.get(`/api/${secretRoute}`, function(req, res) {
     // res.sendFile(path.resolve(__dirname, 'client/build/index.html'));
     capstone.find({}).then(data => {
         res.send(data);
@@ -72,7 +73,7 @@ app.post('/api/newUser', function(req, res) {
     newUser.save();
 });
 
-app.patch('/api/addStudent', function(req, res) {
+app.post('/api/addStudent', function(req, res) {
     let list = req.body.students;
     // return console.log(req.body.info);
     list.push(req.body.info);
@@ -84,7 +85,7 @@ app.patch('/api/addStudent', function(req, res) {
     // console.log(list);
 });
 
-app.patch('/api/deleteStudent', function(req, res) {
+app.post('/api/deleteStudent', function(req, res) {
     let newList = req.body.newList;
     // return console.log('newlist', newList);
     capstone.findByIdAndUpdate(req.body.userInfo._id, {
@@ -96,7 +97,7 @@ app.patch('/api/deleteStudent', function(req, res) {
     });
 });
 
-app.patch('/api/editStudent', function(req, res) {
+app.post('/api/editStudent', function(req, res) {
     let { oldList, userInfo } = req.body
     // return console.log(oldList);
     capstone.findByIdAndUpdate(userInfo._id, {
@@ -108,7 +109,7 @@ app.patch('/api/editStudent', function(req, res) {
     });
 });
 
-app.patch('/api/addTodo', function(req, res) {
+app.post('/api/addTodo', function(req, res) {
     const { userInfo, todos } = req.body;
 
     // console.log(todos);
@@ -123,7 +124,7 @@ app.patch('/api/addTodo', function(req, res) {
     // console.log(userInfo, todos);
 });
 
-app.patch('/api/toggleTodo', function(req, res) {
+app.post('/api/toggleTodo', function(req, res) {
     const { userInfo, todos } = req.body;
     // console.log(todos);
     capstone.findByIdAndUpdate(userInfo._id, {
@@ -133,7 +134,7 @@ app.patch('/api/toggleTodo', function(req, res) {
     });
 });
 
-app.patch('/api/deleteTodo', function(req, res) {
+app.post('/api/deleteTodo', function(req, res) {
     const { userInfo, todos } = req.body;
     // console.log(userInfo);
     capstone.findByIdAndUpdate(userInfo._id, {
