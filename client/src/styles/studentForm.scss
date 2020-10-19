@@ -1,7 +1,6 @@
 .student-form {
     display: grid;
     grid-gap: 10px;
-    // width: 100px;
     justify-content: center;
 
     label, input {
@@ -11,8 +10,6 @@
 
 .student-form-close {
     position: absolute;
-    // align-items: center;
-    // right: 27%;
     right: 10px;
 }
 

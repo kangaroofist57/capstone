@@ -15,7 +15,6 @@ export default class Todos extends Component {
 
     componentDidMount = () => {
         let { todos } = JSON.parse(localStorage.getItem('userInfo'));
-        console.log('yes');
         this.setState({
             todos
         });
@@ -34,15 +33,15 @@ export default class Todos extends Component {
             }, 4000);
             return;
         }
-        // alert('Todo input field cannot be empty');
         newTodo = {
             name: newTodo,
             done: false,
             createdAt: new Date()
         }
         todos.push(newTodo);
-        // console.log(todos);
-        axios.post('/api/addTodo', { userInfo, todos }).then(data => console.log('todos')).catch(err => {
+        axios.post('/api/addTodo', { userInfo, todos }).then(data => {
+            
+        }).catch(err => {
             
         });
         this.setState({
@@ -90,7 +89,6 @@ export default class Todos extends Component {
             userInfo.todos = todos;
             localStorage.setItem('userInfo', JSON.stringify(userInfo));
         }
-        // console.log('todo', index);
     }
 
     deleteTodo = (index) => {

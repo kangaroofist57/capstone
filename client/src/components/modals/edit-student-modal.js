@@ -36,8 +36,6 @@ export default class EditStudent extends Component {
         let index = this.props.index;
         let oldList = JSON.parse(localStorage.getItem('userInfo')).students;
         oldList.splice(index, 1, this.state);
-        // let changedStudent = oldList[index] = this.state;
-        // return console.log(oldList);
         axios.post('/api/editStudent', {
             userInfo: JSON.parse(localStorage.getItem('userInfo')),
             oldList
@@ -49,7 +47,6 @@ export default class EditStudent extends Component {
 
     render() {
 
-        // let student = this.props.student;
         
         return(
             <ReactModal isOpen={true} on style={{

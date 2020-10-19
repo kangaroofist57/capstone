@@ -21,7 +21,6 @@ export default class RenderMobileData extends Component {
     }
 
     render() {
-        // console.log(this.renderSmallerData());
         return(
             <table className="student-table">
                 <tr>
@@ -37,10 +36,6 @@ export default class RenderMobileData extends Component {
                     </th>
                 </tr>
                 {this.renderSmallerData()}
-            {/* {this.props.renderStudents().map(trElement => {
-                    let smaller = trElement.props.children.filter((element, index) =>  index < 4 || index > 8);
-                    return smaller;
-                })} */}
         </table>
         )
     }

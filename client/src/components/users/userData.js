@@ -39,9 +39,7 @@ export default class UserData extends Component {
 
         axios.get(`/api/${secretRoute}`).then(response => {
             let userInfo = response.data.find(element => element._id === JSON.parse(localStorage.getItem('userInfo'))._id);
-            // console.log(userInfo)
             this.setState({
-                // students: userInfo.students
                 students: userInfo.students.length > 0 ? userInfo.students : [{
                     first:'No',
                     middle: 'Students',
@@ -63,7 +61,6 @@ export default class UserData extends Component {
     deleteStudent = (index) => {
         let newList = this.state.students;
         newList.splice(index, 1);
-        // return console.log(arr);
         let userInfo =  JSON.parse(localStorage.getItem('userInfo'));
         axios.post('/api/deleteStudent', {
             userInfo,
@@ -78,7 +75,6 @@ export default class UserData extends Component {
         return this.state.students.map((student, index) => {
             let rng = Math.random() * 10;
             let { first, middle, last, gender, dob, address, contact, notes } = student;
-            // console.log(student)
             return (
                 <tr key={rng}>
                     <th>{index + 1}</th>
@@ -101,7 +97,6 @@ export default class UserData extends Component {
     }
 
     toggleModal = (type, student, index) => {
-        console.log(student)
         if(this.state[type] === false) {
             this.setState({ [type]: true });
             if(student) this.setState({ student, index });
@@ -121,12 +116,6 @@ export default class UserData extends Component {
                     {this.state.showStudentModal ? <StudentModal dim={{ width: this.state.width, height: this.state.height}} student={this.state.student} toggleModal={() => this.toggleModal('showStudentModal')} /> : null}
                     {this.state.showEditStudentModal ? <EditStudent dim={{ width: this.state.width, height: this.state.height}} index={this.state.index} student={this.state.student} toggleModal={() => this.toggleModal('showEditStudentModal')} /> : null}
                 </div>
-                {/* <button onClick={() => console.log(this.renderStudents()[0].props)}>test</button> */}
-                {/* {this.renderStudents()[0].props} */}
-                {/* {this.renderStudents().map(trElement => {
-                    let smaller = trElement.props.children.filter((element, index) =>  index < 4 || index > 8);
-                    return smaller;
-                })} */}
             </div>
         )
     }

@@ -53,9 +53,6 @@ export default class APP extends Component {
         }
       });
     });
-
-    // return status;
-
   }
 
   updateWindowDimensions = () => {
@@ -74,10 +71,8 @@ export default class APP extends Component {
 
   logOut = () => {
     let status = localStorage.getItem('loggedInStatus');
-    console.log('status');
     if(status === 'true') {
       localStorage.clear();
-      // this.history.push('/login');
       window.location.reload({ forcedReload: false });
     }
   }
@@ -130,11 +125,3 @@ export default class APP extends Component {
     )
   }
 }
-
-/* <button onClick={this.handleClick}>test</button>
-<div>{this.state.data !== null ? this.state.data.map(data =>(
-  <div key={Math.random()*5}>
-    <div>{data.username}</div>
-    <div>{data.password}</div>
-  </div>
-)) : null}</div> */

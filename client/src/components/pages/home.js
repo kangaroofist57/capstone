@@ -1,6 +1,6 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrash, faEdit, faEye, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 
 import studentChartImage from '../../images/student-chart-image.PNG';
 import todosLayoutImage from '../../images/todos-layout-image.PNG';
@@ -16,7 +16,6 @@ export default class Home extends Component {
       
     render() {
 
-        // let images = readdirSync('./');
         return(
             <div>
                 <div className='images-container'>

@@ -37,25 +37,22 @@ export default class Users extends Component {
             this.setState({ userModal: false });
         } else {
             this.setState({ user, userModal: true });
-            console.log(user);
         }
     }
 
     deleteUser = (mongoID) => {
         let newList = this.state.allUsers.filter(user => user._id !== mongoID);
         let findUser = this.state.allUsers.find(user => user._id === mongoID);
-        console.log(findUser);
         this.setState({ allUsers: newList });
 
         axios.post('/api/deleteUser', { findUser }).then(response => {
-            console.log(response.data);
+
         }).catch(err => {
             console.log('axios err', err);
         })
     }
 
     renderCards = () => {
-        // console.log(this.state.allUsers)
         return this.state.allUsers.map((user) => (
             <div className='user-card'>
                 <div>

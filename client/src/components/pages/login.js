@@ -44,12 +44,9 @@ export default class Login extends Component {
           problems: 'Incorrect username'
         });
       });
-      // console.log(response);
     }).catch(err => {
       console.log('axios Error', err);
     });
-    // this.props.history.push('/');
-    // window.location.reload({ forcedReload: false });
   }
 
   changeHandler = (event) => {
@@ -86,10 +83,9 @@ export default class Login extends Component {
         this.setState({ problems: 'Username is already taken' });
       }
     });
-    // return;
     if(usernameCheck) return;
     axios.post('/api/newUser', { username: this.state.newUsername, password: this.state.newPassword }).then(data => {
-      console.log(data);
+
     });
     this.homeReload();
   }
@@ -97,15 +93,6 @@ export default class Login extends Component {
   render() {
     return (
       <div className="app">
-
-        {/* <div className="user-name">{localStorage.getItem('loggedInStatus') === 'true'
-        ?
-        (<div>
-          <div>Logged In As</div>
-          <h1>{JSON.parse(localStorage.getItem('userInfo')).username}</h1>
-        </div>)
-        :
-        null}</div> */}
 
         <div className="log-in-form">
 

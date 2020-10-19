@@ -3,6 +3,7 @@ import ReactModal from 'react-modal';
 import axios from 'axios';
 
 import { secretRoute } from '../../configs/adminID.json';
+import Calender from '../../helpers/calender';
 
 ReactModal.setAppElement("#root");
 
@@ -11,14 +12,15 @@ export default class StudentFormModal extends Component {
         super(props);
 
         this.state = {
-
+            month: 1,
+            day: 1,
+            year: 1900
         }
     }
 
     componentDidMount = () => {
         axios.get(`/api/${secretRoute}`).then(response => {
             let userInfo = response.data.find(user => user._id === JSON.parse(localStorage.getItem('userInfo'))._id)
-            console.log('test', response.data)
             this.setState({
                 students: userInfo.students
             });
@@ -47,6 +49,18 @@ export default class StudentFormModal extends Component {
                 notes: this.state.notes || '',
             }
         });
+    }
+
+    dateHandler = async(event) => {
+        let name = event.target.name;
+        let value = parseInt(event.target.value) ;
+        await this.setState({
+            [name]: value,
+        });
+        await this.setState({
+            dob: `${this.state.month}/${this.state.day}/${this.state.year}`
+        });
+        
     }
     
     render() {
@@ -97,12 +111,7 @@ export default class StudentFormModal extends Component {
                     />
 
                     <label>Date of Birth</label>
-                    <input
-                        type='text'
-                        name='dob'
-                        placeholder='MM-DD-YYY'
-                        onChange={this.changeHandler}
-                    />
+                    <Calender dateHandler={this.dateHandler} />
 
                     <label>Address</label>
                     <input
